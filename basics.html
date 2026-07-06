@@ -3,178 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>基本手法 — Meowdoku 解法ガイド</title>
+<title>基本手法 — Meowdoku</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
-  <div class="container">
-    <h1>🐱 基本手法</h1>
-    <p class="sub">すべての攻略の基礎 — 最初に覚える4つのテクニック</p>
-  </div>
-</header>
-
-<nav>
-  <ul>
-    <li><a href="index.html">📖 目次</a></li>
-    <li><a href="basics.html" style="color:var(--accent);border-color:var(--accent);">基本</a></li>
-    <li><a href="core.html">核心</a></li>
-    <li><a href="intermediate.html">中級</a></li>
-    <li><a href="advanced.html">上級</a></li>
-    <li><a href="walkthrough.html">実演</a></li>
-    <li><a href="hard.html">Hard攻略</a></li>
-  </ul>
-</nav>
-
+<header><div class="container"><h1>🐱 基本手法</h1><p class="sub">本家 8×8 盤面で覚える 4 つのテクニック</p></div></header>
+<nav><ul>
+<li><a href="index.html">📖 目次</a></li>
+<li><a href="basics.html" style="color:var(--accent);border-color:var(--accent);">基本</a></li>
+<li><a href="core.html">核心</a></li>
+<li><a href="intermediate.html">中級</a></li>
+<li><a href="advanced.html">上級</a></li>
+<li><a href="walkthrough.html">実演</a></li>
+<li><a href="hard.html">Hard攻略</a></li>
+</ul></nav>
 <div class="container">
-
 <section>
 <h2 class="section-title">⭐ 基本1：✗マーク</h2>
 <p class="section-sub">「猫を置く前に、まず置けない場所を証明する」</p>
-
 <div class="card">
-  <p>初心者は「どこに猫を置けるか」を探します。<strong>上級者は先に「どこに猫を置けないか」を証明します。</strong><br>
-  ルールは「禁止事項」（行の共有禁止・列の共有禁止・斜め接触禁止）で構成されています。つまり猫を置ける場所は、<strong>置けない場所を消した残り</strong>としてしか現れません。</p>
-
-  <h4>✗が発生する3つの条件</h4>
-  <ol>
-    <li><strong>行の共有（ルール②）:</strong> 猫が置かれた行の、他の全マスが ✗</li>
-    <li><strong>列の共有（ルール②）:</strong> 猫が置かれた列の、他の全マスが ✗</li>
-    <li><strong>斜め接触（ルール③）:</strong> 猫の周囲8マス（上下左右＋斜め4方向）がすべて ✗</li>
-  </ol>
-
-  <h4>図解：中央の猫1匹が生む✗</h4>
-
-  <div class="board-row">
-    <figure>
-      <div class="board" style="grid-template-columns:repeat(5,52px);grid-template-rows:repeat(5,52px);">
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div>
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div>
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell cat"></div><div class="cell x">✗</div><div class="cell x">✗</div>
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div>
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div>
-      </div>
-      <figcaption>🐱 1匹が行（R3）・列（C3）・周囲8マスを✗に</figcaption>
-    </figure>
-  </div>
-
-  <div class="tip">
-    <strong>✗は「メモ」ではなく「証明」</strong><br>
-    ✗を付けることは「ルール違反を宣言する」ことです。根拠なく✗を付けてはいけませんが、ルールに基づく✗は揺るぎない確定情報です。
-  </div>
+<p>ルールは「禁止事項」（行・列・斜め接触禁止）で構成。猫を置ける場所は、<strong>置けない場所を消した残り</strong>としてしか現れません。</p>
+<h4>✗が発生する3つの条件</h4>
+<ol>
+<li>猫が置かれた<strong>行</strong>の他の全マスが ✗</li>
+<li>猫が置かれた<strong>列</strong>の他の全マスが ✗</li>
+<li>猫の<strong>周囲 8 マス</strong>（斜め含む）がすべて ✗</li>
+</ol>
+<h4>図解：本家 Lv31 盤面（8×8）</h4>
+<p>Level 31 と同じ 8×8 サイズで 3 匹の猫が配置された状態。大量の白い×が発生しています。</p>
+<div class="board-row"><figure>
+<div class="board" style="grid-template-columns:repeat(8,40px);grid-template-rows:repeat(8,40px);">
+<div class="cell x r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell em r-b"></div><div class="cell x r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell cat r-b"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell x r-b"></div><div class="cell cat r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell em r-d"></div><div class="cell cat r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-d"></div><div class="cell x r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+</div>
+<figcaption>本家 Lv31 と同じ 8×8 サイズ。3 匹の猫から大量の×が発生</figcaption>
+</figure></div>
+<div class="tip"><strong>本家と同じ動作</strong><br>白い×は、各猫から「行・列・斜め」の制約で自動的に発生。本家アプリでは 1 タップで付けていきます。</div>
 </div>
 </section>
-
 <section>
 <h2 class="section-title">⭐ 基本2：領域シングル</h2>
-<p class="section-sub">「この色の領域に残った1マス」— 最も頻出する確定パターン</p>
-
+<p class="section-sub">「この色の領域に残った 1 マス」— 最も頻出する確定パターン</p>
 <div class="card">
-  <p>ある色の領域の中で、猫を置けるマスが <strong>1つだけ</strong> になっている状態。EASYからHARDまで全レベルで使う最重要パターンです。</p>
-
-  <h4>しくみ</h4>
-  <p>4マスで構成される領域Aを例にします。他の領域の猫が置かれた結果、領域Aのうち3マスが行・列・斜めの制約で✗になりました：</p>
-
-  <div class="board-row">
-    <figure>
-      <div class="board" style="grid-template-columns:repeat(2,52px);grid-template-rows:repeat(2,52px);">
-        <div class="cell x r-a" style="position:relative;">✗<span class="rl">A</span><span class="reason reason-row" style="position:absolute;bottom:2px;right:3px;font-size:0.45em;padding:1px 4px;border-radius:3px;">行</span></div>
-        <div class="cell x r-a" style="position:relative;">✗<span class="rl">A</span><span class="reason reason-col" style="position:absolute;bottom:2px;right:3px;font-size:0.45em;padding:1px 4px;border-radius:3px;">列</span></div>
-        <div class="cell x r-a" style="position:relative;">✗<span class="rl">A</span><span class="reason reason-diag" style="position:absolute;bottom:2px;right:3px;font-size:0.45em;padding:1px 4px;border-radius:3px;">斜</span></div>
-        <div class="cell em next r-a"><span class="rl">A</span></div>
-      </div>
-      <figcaption>領域A：3マスが✗（行・列・斜め制約）、残り1マス（✓）が確定</figcaption>
-    </figure>
-  </div>
-
-  <p>領域Aの4マスのうち、✗が3つ。残った1マスに自動的に猫が確定します。</p>
-
-  <div class="tip">
-    <strong>なぜ正しいのか</strong><br>
-    ルール①「各領域に猫は1匹」により、領域Aの<strong>どこか</strong>に必ず猫が必要。空マスが1つしかなければ、そこに置く以外に選択肢はありません。推測ではなく、ルールからの必然です。
-  </div>
-
-  <h4>探し方のコツ</h4>
-  <p>盤面を見たら、まず <strong>最小の領域（2〜4マス）</strong> からチェックします。小さい領域ほど✗の影響で候補が急減しやすく、シングルが見つかりやすいからです。</p>
+<p>ある色の領域の中で、猫を置けるマスが <strong>1 つだけ</strong> になっている状態。EASY から HARD まで最重要パターン。</p>
+<h4>しくみ（8×8 盤面）</h4>
+<p>紫の猫（R3C2）が生んだ×により、左側のピンク領域の 4 マスのうち 3 マスが×に。残り 1 マスが空欄で確定：</p>
+<div class="board-row"><figure>
+<div class="board" style="grid-template-columns:repeat(8,40px);grid-template-rows:repeat(8,40px);">
+<div class="cell x r-e"></div><div class="cell x r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div>
+<div class="cell em r-f"></div><div class="cell cat r-f"></div><div class="cell x r-e"></div><div class="cell em r-e"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div>
+<div class="cell x r-f"></div><div class="cell x r-f"></div><div class="cell x r-e"></div><div class="cell em r-e"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div>
+</div>
+<figcaption>8×8 で見る領域シングル。紫の猫の×で、ピンク領域は残り 1 マス（✓）に</figcaption>
+</figure></div>
+<div class="tip"><strong>なぜ正しいのか</strong><br>ルール①により、ピンク領域の<strong>どこか</strong>に必ず猫が必要。空マスが 1 つしかなければ、そこに置く以外に選択肢はありません。推測ではなく、ルールからの必然です。</div>
+<h4>探し方のコツ</h4>
+<p>まず <strong>最小の領域（2〜4 マス）</strong> からチェック。小さい領域ほど×の影響で候補が急減し、シングルが見つかりやすい。</p>
 </div>
 </section>
-
 <section>
 <h2 class="section-title">⭐ 基本3：行シングル・列シングル</h2>
-<p class="section-sub">「この行（列）で空いてるのが1マスだけ」</p>
-
+<p class="section-sub">「この行（列）で空いてるのが 1 マスだけ」</p>
 <div class="card">
-  <p>ある行（または列）の中で猫を置けるマスが <strong>1つしかない</strong>状態。複数の領域からの✗が重なることで発生します。</p>
-
-  <h4>しくみ（行シングル）</h4>
-  <p>6マスの行（R3）を例にします。他の猫たちの行・列・斜め制約で5マスが✗になりました：</p>
-
-  <div class="board-row">
-    <figure>
-      <div class="board" style="grid-template-columns:repeat(6,52px);grid-template-rows:repeat(1,52px);">
-        <div class="cell x" style="position:relative;">✗<span class="reason reason-col" style="position:absolute;bottom:2px;right:3px;font-size:0.45em;padding:1px 4px;border-radius:3px;">列</span></div>
-        <div class="cell x" style="position:relative;">✗<span class="reason reason-diag" style="position:absolute;bottom:2px;right:3px;font-size:0.45em;padding:1px 4px;border-radius:3px;">斜</span></div>
-        <div class="cell x" style="position:relative;">✗<span class="reason reason-col" style="position:absolute;bottom:2px;right:3px;font-size:0.45em;padding:1px 4px;border-radius:3px;">列</span></div>
-        <div class="cell x" style="position:relative;">✗<span class="reason reason-row" style="position:absolute;bottom:2px;right:3px;font-size:0.45em;padding:1px 4px;border-radius:3px;">行</span></div>
-        <div class="cell em next"></div>
-        <div class="cell x" style="position:relative;">✗<span class="reason reason-col" style="position:absolute;bottom:2px;right:3px;font-size:0.45em;padding:1px 4px;border-radius:3px;">列</span></div>
-      </div>
-      <figcaption>R3行：5マスが✗（列・斜め制約の積み重ね）、R3C5（✓）が確定</figcaption>
-    </figure>
-  </div>
-
-  <p>ルール②により、1つの行に猫は1匹まで。R3行で空いているのがR3C5だけなら、そこが確定します。</p>
-
-  <div class="tip">
-    <strong>見つけ方のコツ</strong><br>
-    ✗がたくさん付いている行（列）から優先してチェックします。「この行、✗だらけだな」と思ったら、それがチャンスです。
-  </div>
+<p>ある行（列）の中で猫を置けるマスが <strong>1 つしかない</strong> 状態。複数領域の×が重なることで発生。</p>
+<h4>しくみ（8×8 での行シングル）</h4>
+<p>R3 行を見てください。空いているマスは C6（緑領域内）の 1 マスだけ：</p>
+<div class="board-row"><figure>
+<div class="board" style="grid-template-columns:repeat(8,40px);grid-template-rows:repeat(8,40px);">
+<div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-g"></div><div class="cell em r-g"></div><div class="cell em r-g"></div><div class="cell em r-g"></div>
+<div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-g"></div><div class="cell em r-g"></div><div class="cell em r-g"></div><div class="cell em r-g"></div>
+<div class="cell x r-c"></div><div class="cell cat r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-g"></div><div class="cell em r-g"></div><div class="cell x r-g"></div><div class="cell x r-g"></div>
+<div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-g"></div><div class="cell em r-g"></div><div class="cell em r-g"></div><div class="cell em r-g"></div>
+<div class="cell em r-h"></div><div class="cell em r-h"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div>
+<div class="cell em r-h"></div><div class="cell em r-h"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div>
+<div class="cell em r-h"></div><div class="cell em r-h"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div>
+<div class="cell em r-h"></div><div class="cell em r-h"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div>
+</div>
+<figcaption>8×8 での行シングル。R3 行で空いているマスは C6 のみ（緑領域内）</figcaption>
+</figure></div>
+<p>R3 行の黄緑領域（R3C2）に既に猫がいて、行のほかのマスは×扱い。緑領域内で R3 行が交差する C6 が<strong>行シングル</strong>で確定。</p>
+<div class="tip"><strong>見つけ方のコツ</strong><br>×がたくさん付いている行（列）から優先してチェック。「この行、×だらけだな」と思ったら、それがチャンス。</div>
 </div>
 </section>
-
 <section>
 <h2 class="section-title">⭐ 基本4：連鎖の原則</h2>
-<p class="section-sub">「1匹置くたびに、盤面全体が変わる」</p>
-
+<p class="section-sub">「1 匹置くたびに、盤面全体が変わる」</p>
 <div class="card">
-  <p>1匹の猫を置くと、4つの変化が同時に起きます：<strong>①その行全体が✗、②その列全体が✗、③周囲8マスが✗、④その領域の残りマスが✗</strong>。これが <strong>連鎖</strong> です。</p>
-
-  <p>猫を置くたびに必ず以下の4つをチェックする習慣を持ちましょう：</p>
-
-  <div class="steps">
-    <li><strong>行の再スキャン</strong> — 置いた猫の行を✗に。他の領域に影響は？</li>
-    <li><strong>列の再スキャン</strong> — 置いた猫の列を✗に。列シングルが発生していないか？</li>
-    <li><strong>斜めの再スキャン</strong> — 周囲8マスを✗に。領域シングルが発生していないか？</li>
-    <li><strong>領域の再スキャン</strong> — 置いた猫の領域は完了。他の領域でシングルは？</li>
-  </div>
-
-  <div class="warn">
-    <strong>よくあるミス</strong><br>
-    猫を置いて「よし、次はどこだ？」とすぐに探しに行くこと。<strong>新しい猫が生んだ✗が次の確定を生む</strong>のです。必ず立ち止まって連鎖を確認しましょう。
-  </div>
-
-  <div class="tip">
-    <strong>上級者の思考ループ</strong><br>
-    「猫を置く → 連鎖スキャン → 新しい猫 → 連鎖スキャン → …」<br><br>
-    このサイクルを意識するだけで、解く速度と確実性が格段に上がります。
-  </div>
+<p>1 匹の猫を置くと、4 つの変化が同時に起きます：<strong>①行全体が×、②列全体が×、③周囲 8 マスが×、④その領域の残りマスが×</strong>。これが <strong>連鎖</strong>。</p>
+<div class="steps">
+<li><strong>行の再スキャン</strong> — 置いた猫の行を×に。他の領域に影響は？</li>
+<li><strong>列の再スキャン</strong> — 置いた猫の列を×に。列シングルは？</li>
+<li><strong>斜めの再スキャン</strong> — 周囲 8 マスを×に。領域シングルは？</li>
+<li><strong>領域の再スキャン</strong> — 置いた猫の領域は完了。他の領域でシングルは？</li>
 </div>
-
-<div class="page-nav">
-  <a href="index.html">← 目次に戻る</a>
-  <a href="core.html" class="next">次のページ：核心手法 →</a>
+<div class="warn"><strong>よくあるミス</strong><br>猫を置いて「よし、次はどこだ？」とすぐに探しに行くこと。<strong>新しい猫が生んだ×が次の確定を生む</strong>ので、必ず立ち止まって連鎖を確認。</div>
+<div class="tip"><strong>上級者の思考ループ</strong><br>「猫を置く → 連鎖スキャン → 新しい猫 → 連鎖スキャン → …」このサイクルを意識するだけで、速度と確実性が格段に上がります。</div>
 </div>
-
 </section>
-
+<div class="page-nav">
+<a href="index.html">← 目次に戻る</a>
+<a href="core.html" class="next">次のページ：核心手法 →</a>
 </div>
-
-<footer>
-  <p>Meowdoku 解法ガイド — Unofficial fan guide</p>
-</footer>
-
+</div>
+<footer><p>Meowdoku 解法ガイド — Unofficial fan guide</p><p>Meowdoku is a product of Oakever Games PTE. LTD.</p></footer>
 </body>
 </html>
