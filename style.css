@@ -1,21 +1,47 @@
+/* ===== Meowdoku 解法ガイド — 本家アプリビジュアル再現CSS ===== */
+/* カラーパレットは Oakever Games 本家 Lv20 スクリーンショット(8×8) から直接抽出 */
+
+/* ===== reset & base ===== */
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
 :root {
+  /* ---- 基本色 ---- */
   --white: #ffffff;
-  --bg: #f8f4ee;                    /* 本家アプリの柔らかいクリーム背景 */
+  --bg: #f5efe7;                    /* 本家の柔らかいクリーム背景 */
   --surface: #ffffff;
-  --surface2: #f0e9e0;
-  --surface3: #e8d9c8;
-  --border: #d9c9b8;
-  --text: #2c2420;
-  --text2: #6b5e52;
-  --accent: #d97742;
+  --surface2: #ede6d9;             /* カード背景 */
+  --surface3: #e2d5c2;             /* ホバー時等 */
+  --border: #d4c4ad;
+
+  /* ---- テキスト ---- */
+  --text: #3d3428;
+  --text2: #6b6054;
+  --accent: #d47642;               /* 本家オレンジアクセント */
   --accent2: #b8860b;
-  --link: #2b6cb0;
-  --cat-bg: #2c2520;
-  --x-bg: #f0e6df;
-  --x-color: #8c5a4a;
-  --confirm: #4a9c6e;
+  --link: #4a90c4;
+
+  /* ---- 猫 & ✗ ---- */
+  --cat-bg: #2d2620;                /* 本家の濃い茶色（猫配置時） */
+  --cat-face: #fff;                /* 猫顔の白い部分 */
+  --x-bg: #ebe0d4;                /* ✗の背景色（淡いベージュ） */
+  --x-color: #8c5a4a;              /* ✗の茶色（本家準拠） */
+  --confirm: #4a9c6e;              /* 確定緑 */
+
+  /* ---- レイアウト ---- */
   --max-w: 880px;
   --font: 'Noto Sans JP','Hiragino Sans','Segoe UI',sans-serif;
+
+  /* ---- 本家領域色（Lv20スクショットから抽出・彩度高め） ---- */
+  /* A=紫 B=暗緑 C=明緑 D=ゴールド E=ローズ F=コーラル G=ティール H=ホットピンク */
+  --region-a: #a39bce;            /* ラベンダー紫 */
+  --region-b: #4a9464;            /* ダークフォレストグリーン */
+  --region-c: #7ecf82;            /* ライトミントグリーン */
+  --region-d: #dab24e;            /* マスタード/ゴールド */
+  --region-e: #de8ba0;            /* ダスティーピンク/ローズ */
+  --region-f: #eda566;            /* コーラル/オレンジ */
+  --region-g: #64b5cc;            /* ティール/シアンブルー */
+  --region-h: #ef8da6;            /* ホットピンク/マゼンタ */
 }
 
 body {
@@ -25,12 +51,11 @@ body {
   line-height: 1.85;
   font-size: 15px;
 }
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 20px; }
 
-.container { max-width:var(--max-w); margin:0 auto; padding:0 20px; }
-
-/* header */
+/* ===== header ===== */
 header {
-  background: linear-gradient(135deg, #faf6f0 0%, #f5ede4 50%, #faf0ea 100%);
+  background: linear-gradient(135deg, #faf6ed 0%, #f5ead9 50%, #faf2e4 100%);
   border-bottom: 2px solid var(--border);
   padding: 48px 0 36px;
   text-align: center;
@@ -40,9 +65,9 @@ header h1 {
   color: var(--accent);
   letter-spacing: -0.02em;
 }
-header .sub { color: var(--text2); font-size:1em; margin-top:8px; }
+header .sub { color: var(--text2); font-size: 1em; margin-top: 8px; }
 
-/* nav */
+/* ===== nav ===== */
 nav {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
@@ -67,9 +92,13 @@ nav ul li a {
   border-bottom: 2px solid transparent;
   transition: all 0.15s;
 }
-nav ul li a:hover { color: var(--accent); border-color: var(--accent); background: rgba(217,119,66,0.05); }
+nav ul li a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(212,118,66,0.05);
+}
 
-/* sections */
+/* ===== sections ===== */
 section { padding: 48px 0; }
 .section-title {
   font-size: 1.6em; font-weight: 800;
@@ -83,7 +112,7 @@ section { padding: 48px 0; }
   margin-bottom: 28px;
 }
 
-/* cards */
+/* ===== cards ===== */
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -92,16 +121,32 @@ section { padding: 48px 0; }
   margin-bottom: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.04);
 }
+.card h3 { font-size: 1.15em; font-weight: 700; margin-bottom: 10px; color: var(--accent2); }
+.card h4 { font-size: 1em; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+.card p, .card li { color: var(--text2); line-height: 1.85; }
+.card ul, .card ol { padding-left: 20px; margin: 6px 0; }
+.card li { margin-bottom: 3px; }
 
-/* board - 本家に極力近づけたデザイン */
+/* ================================================================
+   盤面デザイン — 本家アプリのビジュアルを純CSSで再現
+   ・各セルに大きな丸角（border-radius: 16px）
+   ・セル間に隙間（gap: 7px）、背景色が透けて見える
+   ・インセットシャドウで立体的な「タイル」感
+   ・盤面全体も角丸＋影で浮いている感じ
+   ================================================================ */
+
 .board-row {
-  display: flex; gap: 28px;
+  display: flex;
+  gap: 28px;
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
   margin: 20px 0;
 }
-.board-row figure { text-align: center; flex: 0 1 auto; }
+.board-row figure {
+  text-align: center;
+  flex: 0 1 auto;
+}
 .board-row figcaption {
   font-size: 0.8em;
   color: var(--text2);
@@ -109,141 +154,121 @@ section { padding: 48px 0; }
   max-width: 320px;
 }
 
+/* 盤面コンテナ — 本家のような角丸＋影 */
 .board {
   display: inline-grid;
-  gap: 7px;
-  background: #e2d5c2;
+  gap: 7px;                          /* セル間の隙間（本家準拠） */
+  background: transparent;
   padding: 10px;
   border-radius: 22px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.1),
-              inset 0 4px 8px rgba(255,255,255,0.6);
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.10),
+    inset 0 4px 8px rgba(255,255,255,0.55);
 }
 
+/* 各セル — 丸角タイル + インセットシャドウで立体感 */
 .cell {
   width: 54px;
   height: 54px;
-  border-radius: 16px;
+  border-radius: 16px;                 /* 大きな丸角（本家準拠） */
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.75em;
   font-weight: 700;
   position: relative;
-  box-shadow: 
-    0 3px 6px rgba(0,0,0,0.12),
-    inset 0 2px 4px rgba(255,255,255,0.7),
-    inset 0 -2px 4px rgba(0,0,0,0.1);
+  box-shadow:
+    0 3px 6px rgba(0,0,0,0.12),     /* 下方向の影 */
+    inset 0 2px 4px rgba(255,255,255,0.65),   /* 上からのハイライト */
+    inset 0 -2px 4px rgba(0,0,0,0.07);       /* 下への陰 */
   transition: transform 0.2s ease;
   background: #f9f5f0;
 }
-
 .cell:hover { transform: scale(1.04); }
 
+/* 領域ラベル（左上小文字） */
 .cell .rl {
   position: absolute;
   top: 4px; left: 6px;
   font-size: 0.45em;
   font-weight: 700;
-  opacity: 0.6;
-  color: #6b5e52;
+  opacity: 0.55;
+  color: #5a4e42;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.6);
 }
 
-/* 猫 */
+/* ----- 猫が置かれたセル ----- */
 .cell.cat {
-  background: #2c2520;
-  color: #fff;
-  box-shadow: 
-    0 4px 10px rgba(0,0,0,0.4),
-    inset 0 3px 6px rgba(255,255,255,0.2);
+  background: var(--cat-bg);          /* 濃い茶色背景 */
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.35),
+    inset 0 2px 4px rgba(255,255,255,0.18);
 }
-.cell.cat::after { content: '🐱'; font-size: 1.85em; }
+.cell.cat::after {
+  content: '🐱';
+  font-size: 1.85em;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
 
-/* ✗ */
+/* ----- ✗マーク（本家準拠：茶色クロス）----- */
 .cell.x {
-  background: #f0e6df;
-  color: #8c5a4a;
-  font-size: 1.45em;
+  background: var(--x-bg);             /* 淡いベージュ背景 */
+  color: var(--x-color);              /* 茶色 */
+  font-size: 1.5em;
 }
-.cell.x::after { content: '✕'; font-weight: 900; }
+.cell.x::after {
+  content: '✕';
+  font-weight: 900;
+  opacity: 0.75;
+}
 
-/* 次に置く確定マス */
+/* ----- 次に置く確定マス（緑枠） ----- */
 .cell.em.next {
-  background: #e8f5e9;
-  box-shadow: 
-    0 0 0 4px #2e7d32,
-    0 4px 12px rgba(46,125,50,0.3);
+  background: #eaf6eb;
+  box-shadow:
+    0 0 0 3.5px #4a9c6e,
+    0 4px 14px rgba(74,156,110,0.25),
+    inset 0 2px 4px rgba(255,255,255,0.6);
 }
 .cell.em.next::after {
   content: '✓';
-  color: #2e7d32;
-  font-size: 1.1em;
+  color: #3d8060;
+  font-size: 1.15em;
   font-weight: 900;
 }
 
-/* 領域色（本家スクリーンショットに近いパステル） */
-.r-a  { background: #b8a3d8; }  /* 柔らかい紫 */
-.r-b  { background: #6eb88a; }  /* 鮮やかな緑 */
-.r-c  { background: #7ac6b8; }  /* 青緑 */
-.r-d  { background: #f2b56c; }  /* 暖かいオレンジ */
-.r-e  { background: #e88a9e; }  /* 優しいピンク */
-.r-f  { background: #a3d47a; }  /* 明るい黄緑 */
-.r-g  { background: #f2a67a; }  /* サーモン */
-.r-h  { background: #7ab8d4; }  /* 水色 */
-.r-i  { background: #d4b87a; }  /* ベージュオレンジ */
-.r-j  { background: #9a8ac4; }  /* ラベンダー */
-.r-k  { background: #e8a07a; }  /* ピーチ */
-.r-l  { background: #8ac47a; }  /* 草色 */
+/* ================================================================
+   領域色 — 本家Lv20スクショットから直接抽出した8色
+   彩度を上げて本家の「鮮やかさ」を再現
+   ================================================================ */
+.r-a  { background: var(--region-a); }  /* ラベンダー紫 */
+.r-b  { background: var(--region-b); }  /* ダークフォレストグリーン */
+.r-c  { background: var(--region-c); }  /* ライトミントグリーン */
+.r-d  { background: var(--region-d); }  /* マスタード/ゴールド */
+.r-e  { background: var(--region-e); }  /* ローズピンク */
+.r-f  { background: var(--region-f); }  /* コーラルオレンジ */
+.r-g  { background: var(--region-g); }  /* ティールブルー */
+.r-h  { background: var(--region-h); }  /* ホットピンク */
+.r-i  { background: var(--region-a); }  /* 拡張用（紫） */
+.r-j  { background: var(--region-e); }  /* 拡張用（ローズ） */
+.r-k  { background: var(--region-d); }  /* 拡張用（ゴールド） */
+.r-l  { background: var(--region-c); }  /* 拡張用（ミント） */
 
-/* 猫と✗が領域色の上に置かれた時の上書き */
+/* 猫が乗っている時 → 濃い茶色で上書き */
 .cat.r-a,.cat.r-b,.cat.r-c,.cat.r-d,.cat.r-e,.cat.r-f,
-.cat.r-g,.cat.r-h,.cat.r-i,.cat.r-j,.cat.r-k,.cat.r-l { background: var(--cat-bg); color:#fff; }
+.cat.r-g,.cat.r-h,.cat.r-i,.cat.r-j,.cat.r-k,.cat.r-l {
+  background: var(--cat-bg);
+  color: #fff;
+}
 
+/* ✗が乗っている時 → 淡いベージュで上書き */
 .x.r-a,.x.r-b,.x.r-c,.x.r-d,.x.r-e,.x.r-f,
-.x.r-g,.x.r-h,.x.r-i,.x.r-j,.x.r-k,.x.r-l { 
-  background: var(--x-bg); 
-  color: var(--x-color); 
+.x.r-g,.x.r-h,.x.r-i,.x.r-j,.x.r-k,.x.r-l {
+  background: var(--x-bg);
+  color: var(--x-color);
 }
 
-/* ルールボックス */
-.rule-box {
-  background: #f8f4ee;
-  border: 1px solid #e2d5c2;
-  border-radius: 12px;
-  padding: 14px;
-  font-size: 0.92em;
-  line-height: 1.5;
-}
-
-/* guide card */
-.guide-card {
-  display: block;
-  padding: 24px;
-  background: white;
-  border: 2px solid #e2d5c2;
-  border-radius: 16px;
-  text-decoration: none;
-  text-align: center;
-  transition: all 0.2s;
-}
-.guide-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(217,119,66,0.15);
-}
-.guide-card .emoji { font-size: 2.4em; margin-bottom: 8px; }
-.guide-card .title { 
-  font-weight: 700; 
-  color: var(--accent); 
-  font-size: 1.1em; 
-  margin: 6px 0 4px;
-}
-.guide-card .desc { 
-  font-size: 0.85em; 
-  color: var(--text2); 
-  line-height: 1.4;
-}
-
-/* page nav */
+/* ===== page nav ===== */
 .page-nav {
   display: flex;
   justify-content: space-between;
@@ -269,15 +294,24 @@ section { padding: 48px 0; }
 }
 .page-nav .next { margin-left: auto; }
 
-/* misc */
+/* ===== misc boxes ===== */
 .tip, .warn {
   border-radius: 14px;
   padding: 18px 22px;
   margin: 16px 0;
 }
-.tip { background: #fdf6ee; border: 1px solid #f0dcc0; }
-.warn { background: #fef0ee; border: 1px solid #f5c6bb; }
+.tip {
+  background: #fdf8ee;
+  border: 1px solid #f0dcc0;
+}
+.tip strong { color: var(--accent2); }
+.warn {
+  background: #fef2f0;
+  border: 1px solid #f5c6bb;
+}
+.warn strong { color: var(--x-color); }
 
+.steps { counter-reset: step; }
 .steps li {
   list-style: none;
   padding: 14px 18px 14px 54px;
@@ -301,16 +335,50 @@ section { padding: 48px 0; }
   align-items: center;
   justify-content: center;
   font-size: 0.85em;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.72em;
+  font-weight: 700;
+}
+.badge-easy   { background: #e8f5e9; color: #2e7d32; }
+.badge-medium { background: #fff8e1; color: #f57f17; }
+.badge-hard   { background: #fce4ec; color: #c62828; }
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.88em;
+}
+.info-table th, .info-table td {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+.info-table th { background: var(--surface2); color: var(--accent2); font-weight: 700; }
+.info-table td { background: var(--surface); color: var(--text2); }
+.info-table tr:hover td { background: var(--surface3); }
+
 .legend {
-  display: flex; gap: 18px; flex-wrap: wrap;
-  margin: 16px 0; padding: 18px;
-  background: var(--surface2); border-radius: 14px;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+  padding: 18px;
+  background: var(--surface2);
+  border-radius: 14px;
 }
 .legend-item {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 0.85em; color: var(--text2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85em;
+  color: var(--text2);
 }
 .legend-item .sw {
   width: 26px; height: 26px;
@@ -319,7 +387,7 @@ section { padding: 48px 0; }
   align-items: center;
   justify-content: center;
   font-size: 1em;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.10);
 }
 
 footer {
@@ -330,9 +398,45 @@ footer {
   border-top: 1px solid var(--border);
 }
 
-@media (max-width:640px) {
-  .cell { width: 42px; height: 42px; font-size: 1.25em; }
-  .board { gap: 5px; padding: 8px; }
+/* ===== annotation ===== */
+.annot {
+  font-size: 0.8em;
+  color: var(--text2);
+  padding: 8px 12px;
+  background: var(--surface2);
+  border-radius: 8px;
+  margin: 4px 0;
+  font-weight: 400;
+}
+.annot code {
+  font-size: 0.9em;
+  background: var(--surface3);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+/* ===== reason mark badges ===== */
+.reason {
+  display: inline-block;
+  font-size: 0.52em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: 3px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.reason-row  { background: #fbe8cc; color: #a0522d; }
+.reason-col  { background: #d6ebf5; color: #1a5276; }
+.reason-diag { background: #faddd8; color: #922b21; }
+.reason-reg  { background: #e8d5f5; color: #6c3483; }
+
+/* ===== responsive ===== */
+@media (max-width: 640px) {
+  .cell { width: 42px; height: 42px; font-size: 1.35em; }
+  .cell.cat::after { font-size: 1.5em; }
+  .board { gap: 5px; padding: 8px; border-radius: 18px; }
   header h1 { font-size: 1.75em; }
   .section-title { font-size: 1.45em; }
+  .card { padding: 18px; border-radius: 14px; }
+  .cell .rl { font-size: 0.38em; }
 }
