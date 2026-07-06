@@ -14,7 +14,7 @@ html { scroll-behavior:smooth; }
   --accent2: #b8860b;
   --link: #2b6cb0;
   --cat-bg: #3a3028;
-  --x-color: #c0392b;
+  --x-color: #ffffff;
   --confirm: #27ae60;
   --max-w: 880px;
   --font: 'Noto Sans JP','Hiragino Sans','Segoe UI',sans-serif;
@@ -134,119 +134,119 @@ section { padding: 48px 0; }
 }
 .board {
   display: inline-grid;
-  gap: 4px;
+  gap: 5px;
   background: var(--bg);
-  padding: 8px;
+  padding: 10px;
   border-radius: 14px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
 .cell {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1em;
   font-weight: 700;
   position: relative;
-  border-radius: 8px;
+  border-radius: 10px;
+  /* 3D effect: outer shadow (lifted) + inner highlight (top edge) */
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.25),
+    inset 0 -2px 0 rgba(0,0,0,0.08),
+    0 1px 2px rgba(0,0,0,0.10);
   transition: transform 0.12s;
 }
 .cell .rl {
   position: absolute;
-  top: 2px; left: 4px;
+  top: 3px; left: 5px;
   font-size: 0.5em;
-  font-weight: 600;
-  opacity: 0.75;
-  text-shadow: 0 0 2px rgba(255,255,255,0.8);
+  font-weight: 700;
+  opacity: 0.85;
+  color: #fff;
+  text-shadow: 0 0 2px rgba(0,0,0,0.25);
 }
 
-/* Placed cat: white base with cat emoji + soft shadow */
+/* ===== Placed cat: keep region color, only overlay cat image ===== */
 .cell.cat {
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.10);
+  /* Inherits background from .r-* class */
 }
 .cell.cat::after {
   content: '\1F431';
-  font-size: 1.5em;
-  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.15));
+  font-size: 1.6em;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25));
+  position: relative;
+  z-index: 2;
 }
 
-/* X-mark: handwritten-style cross in soft red */
+/* ===== X-mark: thick white cross on top of the region color ===== */
 .cell.x {
-  background: rgba(180, 60, 60, 0.10);
-  position: relative;
+  /* Inherits background from .r-* or .em */
 }
 .cell.x::before,
 .cell.x::after {
   content: '';
   position: absolute;
-  background: #c0392b;
-  border-radius: 2px;
-  box-shadow: 0 0 0 1px rgba(192,57,43,0.3);
+  background: #ffffff;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+  z-index: 1;
 }
 .cell.x::before {
   width: 70%;
-  height: 3px;
+  height: 5px;
   top: 50%;
   left: 15%;
   transform: translateY(-50%) rotate(45deg);
 }
 .cell.x::after {
   width: 70%;
-  height: 3px;
+  height: 5px;
   top: 50%;
   left: 15%;
   transform: translateY(-50%) rotate(-45deg);
 }
 
-/* Empty cell */
-.cell.em { background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+/* ===== Empty cell: white with 3D effect ===== */
+.cell.em {
+  background: #ffffff;
+}
 
-/* Next-move highlight (soft pulse + green ring) */
+/* ===== Next-move highlight (pulse + green ring) ===== */
 .cell.em.next {
-  background: #fff;
-  box-shadow: 0 0 0 3px #27ae60, 0 2px 6px rgba(39,174,96,0.25);
+  background: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    0 0 0 3px #27ae60,
+    0 2px 8px rgba(39,174,96,0.30);
   animation: pulse 1.6s ease-in-out infinite;
 }
 .cell.em.next::after {
   content: '\2713';
   color: #27ae60;
-  font-size: 1em;
+  font-size: 1.1em;
   font-weight: 800;
   text-shadow: 0 0 4px rgba(39,174,96,0.4);
 }
 @keyframes pulse {
   0%, 100% { transform: scale(1); }
-  50%      { transform: scale(1.05); }
+  50%      { transform: scale(1.06); }
 }
 
 /* ===== Meowdoku official color palette (12 regions) ===== */
-.r-a  { background: var(--m-purple); }   /* 紫 */
-.r-b  { background: var(--m-green); }    /* 深緑 */
-.r-c  { background: var(--m-lime); }     /* ライム */
-.r-d  { background: var(--m-yellow); }   /* 黄 */
-.r-e  { background: var(--m-pink); }     /* ピンク */
-.r-f  { background: var(--m-orange); }   /* オレンジ */
-.r-g  { background: var(--m-cyan); }     /* 水色 */
-.r-h  { background: var(--m-magenta); }  /* マゼンタ */
-.r-i  { background: var(--m-teal); }     /* ティール */
-.r-j  { background: var(--m-coral); }    /* コーラル */
-.r-k  { background: var(--m-sky); }      /* スカイ */
-.r-l  { background: var(--m-mint); }     /* ミント */
+.r-a  { background: var(--m-purple); }
+.r-b  { background: var(--m-green); }
+.r-c  { background: var(--m-lime); }
+.r-d  { background: var(--m-yellow); }
+.r-e  { background: var(--m-pink); }
+.r-f  { background: var(--m-orange); }
+.r-g  { background: var(--m-cyan); }
+.r-h  { background: var(--m-magenta); }
+.r-i  { background: var(--m-teal); }
+.r-j  { background: var(--m-coral); }
+.r-k  { background: var(--m-sky); }
+.r-l  { background: var(--m-mint); }
 
-/* Override for placed cat and X cells — these always show on white */
-.cell.cat.r-a,.cell.cat.r-b,.cell.cat.r-c,.cell.cat.r-d,
-.cell.cat.r-e,.cell.cat.r-f,.cell.cat.r-g,.cell.cat.r-h,
-.cell.cat.r-i,.cell.cat.r-j,.cell.cat.r-k,.cell.cat.r-l {
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.10);
-}
-.cell.x.r-a,.cell.x.r-b,.cell.x.r-c,.cell.x.r-d,
-.cell.x.r-e,.cell.x.r-f,.cell.x.r-g,.cell.x.r-h,
-.cell.x.r-i,.cell.x.r-j,.cell.x.r-k,.cell.x.r-l {
-  background: rgba(180, 60, 60, 0.10);
-}
+/* When X or cat is on a region-colored cell, the color is preserved (from .r-*) */
 
 /* ===== page nav ===== */
 .page-nav {
@@ -289,7 +289,7 @@ section { padding: 48px 0; }
   padding: 18px 22px;
   margin: 14px 0;
 }
-.warn strong { color: var(--x-color); }
+.warn strong { color: #c0392b; }
 
 .steps { counter-reset: step; }
 .steps li {
@@ -347,6 +347,7 @@ section { padding: 48px 0; }
   width: 22px; height: 22px; border-radius: 5px;
   display: flex; align-items: center; justify-content: center;
   font-size: 0.65em;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.10);
 }
 
 footer {
@@ -358,9 +359,9 @@ footer {
 }
 
 @media (max-width:600px) {
-  .cell { width:36px; height:36px; font-size:0.95em; }
+  .cell { width:38px; height:38px; font-size:0.95em; }
   .cell .rl { font-size:0.4em; }
-  .board { gap: 3px; padding: 5px; }
+  .board { gap: 4px; padding: 6px; }
   .board-row { gap:12px; }
   header h1 { font-size:1.6em; }
   .section-title { font-size:1.4em; }
