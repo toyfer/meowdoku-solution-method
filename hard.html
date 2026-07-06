@@ -3,154 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hard攻略 — Meowdoku 解法ガイド</title>
+<title>Hard攻略 — Meowdoku</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
-  <div class="container">
-    <h1>🔥 Hard / Ultra 攻略</h1>
-    <p class="sub">実戦で使える思考フローとパターン認識</p>
-  </div>
-</header>
-
-<nav>
-  <ul>
-    <li><a href="index.html">📖 目次</a></li>
-    <li><a href="basics.html">基本</a></li>
-    <li><a href="core.html">核心</a></li>
-    <li><a href="intermediate.html">中級</a></li>
-    <li><a href="advanced.html">上級</a></li>
-    <li><a href="walkthrough.html">実演</a></li>
-    <li><a href="hard.html" style="color:var(--accent);border-color:var(--accent);">Hard攻略</a></li>
-  </ul>
-</nav>
-
+<header><div class="container"><h1>🔥 Hard / Ultra 攻略</h1><p class="sub">8×8 盤面で使える思考フローとパターン認識</p></div></header>
+<nav><ul>
+<li><a href="index.html">📖 目次</a></li>
+<li><a href="basics.html">基本</a></li>
+<li><a href="core.html">核心</a></li>
+<li><a href="intermediate.html">中級</a></li>
+<li><a href="advanced.html">上級</a></li>
+<li><a href="walkthrough.html">実演</a></li>
+<li><a href="hard.html" style="color:var(--accent);border-color:var(--accent);">Hard攻略</a></li>
+</ul></nav>
 <div class="container">
-
 <section>
 <h2 class="section-title">🔥 Hardレベル思考フローチャート</h2>
 <p class="section-sub">行き詰まったときに、この順番でチェックする</p>
-
 <div class="card">
-  <div class="steps">
-    <li><strong>✗マークは十分か？</strong> — 各猫の行・列・斜め8マスすべてに✗が入っているか再確認。特に斜めは忘れがち</li>
-    <li><strong>最小領域から攻める</strong> — 盤面中で最も小さい領域（2〜3マス）の候補をチェック。領域シングルはないか？</li>
-    <li><strong>ラインロックを探す</strong> — 領域の全候補が1つの行・列に集中していないか？</li>
-    <li><strong>ペアロックを探す</strong> — 2つの領域が同じ2つの行・列を争っていないか？</li>
-    <li><strong>行・列シングルを探す</strong> — 各行・各列で「空いてるの1マスだけ」はないか？</li>
-    <li><strong>領域消滅チェック</strong> — 「ここに置いたら別の領域が消える」マスはないか？</li>
-    <li><strong>仮置き矛盾法</strong> — 候補が2つに絞れたら、仮に置いて矛盾を検証</li>
-    <li><strong>盤面全体を見直す</strong> — 解けない部分に固執せず、解ける部分から攻める</li>
-  </div>
-
-  <div class="warn">
-    <strong>最も危険な習慣</strong><br>
-    「なんとなくここに置いてみよう」という根拠のない推測。1回の推測がハートを削るだけでなく、後続の論理を崩壊させます。「なぜここなのか」を説明できない限り、その手は打ってはいけません。
-  </div>
+<div class="steps">
+<li><strong>✗マークは十分か？</strong> — 各猫の行・列・斜め 8 マスすべてに✗が入っているか再確認。特に斜めは忘れがち</li>
+<li><strong>最小領域から攻める</strong> — 盤面中で最も小さい領域（2〜3 マス）の候補をチェック</li>
+<li><strong>ラインロックを探す</strong> — 領域の全候補が 1 つの行・列に集中していないか？</li>
+<li><strong>ペアロックを探す</strong> — 2 つの領域が同じ 2 つの行・列を争っていないか？</li>
+<li><strong>行・列シングルを探す</strong> — 各行・各列で「空いてるの 1 マスだけ」はないか？</li>
+<li><strong>領域消滅チェック</strong> — 「ここに置いたら別の領域が消える」マスはないか？</li>
+<li><strong>仮置き矛盾法</strong> — 候補が 2 つに絞れたら、仮に置いて矛盾を検証</li>
+<li><strong>盤面全体を見直す</strong> — 解けない部分に固執せず、解ける部分から攻める</li>
+</div>
+<div class="warn"><strong>最も危険な習慣</strong><br>「なんとなくここに置いてみよう」という根拠のない推測。1 回の推測がハートを削るだけでなく、後続の論理を崩壊させます。「なぜここなのか」を説明できない限り、その手は打ってはいけません。</div>
 </div>
 </section>
-
+<section>
+<h2 class="section-title">🔥 本家 8×8 盤面での実例</h2>
+<p class="section-sub">Lv31 で実際に詰まる場面と、その脱出法</p>
+<div class="card">
+<p>下の 8×8 盤面は Lv31 で 3 匹配置済みの状態（IMG_9658.png に対応）。この後どう手を打つべき？</p>
+<div class="board-row"><figure>
+<div class="board" style="grid-template-columns:repeat(8,40px);grid-template-rows:repeat(8,40px);">
+<div class="cell x r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell em r-b"></div><div class="cell x r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell cat r-b"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell x r-b"></div><div class="cell cat r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell em r-d"></div><div class="cell cat r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-d"></div><div class="cell x r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+</div>
+<figcaption>8×8 Lv31 で 3 匹配置済み（IMG_9658.png に対応）</figcaption>
+</figure></div>
+<p><strong>次の手を探す手順：</strong></p>
+<ol>
+<li>R1 の緑 B 領域を見ると、列制約で C1 が✗。空マスは C2-C4</li>
+<li>R1-R3 にかけて緑 B の空マスを数えると、<strong>R3 の C1 が✗だから C3-C4 が候補</strong></li>
+<li>左側の他の領域（A 紫・F オレンジなど）と干渉しないか確認</li>
+<li><strong>ラインロック確認</strong>：緑 B の候補が R1-R3 の上部に集中 → R1・R2・R3 のいずれかは緑 B で占有</li>
+</ol>
+<div class="tip">このように、行き詰まったら <strong>フローチャートの上から順に</strong> チェックしていく。8×8 盤面ではラインロック・ペアロック・仮置き矛盾法が決めてになることが多い。</div>
+</div>
+</section>
 <section>
 <h2 class="section-title">🔥 難易度別 早見表</h2>
 <p class="section-sub">レベル帯ごとに求められる戦略が変わります</p>
-
 <div class="card">
-  <table class="info-table">
-    <tr><th>難易度</th><th>盤面サイズ</th><th>出現レベル</th><th>中心となる戦略</th></tr>
-    <tr>
-      <td><span class="badge badge-easy">EASY</span></td>
-      <td>5×5 〜 6×6</td>
-      <td>Lv 1〜10</td>
-      <td>領域シングル + 行/列シングルだけで解ける。連鎖の練習に最適。<br><span style="font-size:0.85em;color:var(--text2);">※本家アプリはLv1から5×5スタート（ファンサイトにより4×4表記の場合あり）</span></td>
-    </tr>
-    <tr>
-      <td><span class="badge badge-medium">MEDIUM</span></td>
-      <td>7×7 〜 8×8</td>
-      <td>Lv 10〜50</td>
-      <td>ラインロック・ペアロックが重要に。斜め制約の波及効果を意識</td>
-    </tr>
-    <tr>
-      <td><span class="badge badge-hard">HARD</span></td>
-      <td>8×8 〜 9×9</td>
-      <td>Lv 30〜200</td>
-      <td>仮置き矛盾・橋渡し・デコイ見破り・終盤スイープを組み合わせる。Hardレベルでは候補が絞りきれない場面が頻出する。</td>
-    </tr>
-  </table>
+<table class="info-table">
+<tr><th>難易度</th><th>盤面サイズ</th><th>出現レベル</th><th>中心となる戦略</th></tr>
+<tr>
+<td><span class="badge badge-easy">EASY</span></td>
+<td>5×5 〜 6×6</td>
+<td>Lv 1〜10</td>
+<td>領域シングル + 行/列シングルだけで解ける。連鎖の練習に最適。<br><span style="font-size:0.85em;color:var(--text2);">※本家アプリは Lv1 から 5×5 スタート（ファンサイトにより 4×4 表記の場合あり）</span></td>
+</tr>
+<tr>
+<td><span class="badge badge-medium">MEDIUM</span></td>
+<td>7×7 〜 8×8</td>
+<td>Lv 10〜50</td>
+<td>ラインロック・ペアロックが重要に。斜め制約の波及効果を意識</td>
+</tr>
+<tr>
+<td><span class="badge badge-hard">HARD</span></td>
+<td>8×8 〜 9×9</td>
+<td>Lv 30〜200</td>
+<td>仮置き矛盾・橋渡し・デコイ見破り・終盤スイープを組み合わせる。Hard レベルでは候補が絞りきれない場面が頻出する。</td>
+</tr>
+</table>
 </div>
 </section>
-
 <section>
 <h2 class="section-title">🔥 行き詰まりパターンと脱出法</h2>
-<p class="section-sub">よくある4つの状況とその対処</p>
-
+<p class="section-sub">よくある 4 つの状況とその対処</p>
 <div class="card">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-    <div style="background:var(--surface2);border-radius:8px;padding:16px;">
-      <p style="font-weight:700;color:var(--accent2);margin-bottom:6px;">候補が2つあって選べない</p>
-      <p style="font-size:0.9em;color:var(--text2);">
-        <strong>→ 仮置き矛盾法</strong><br>
-        片方を選んだ場合をシミュレーション。矛盾したらもう片方が正解。
-      </p>
-    </div>
-    <div style="background:var(--surface2);border-radius:8px;padding:16px;">
-      <p style="font-weight:700;color:var(--accent2);margin-bottom:6px;">盤面の半分が手つかず</p>
-      <p style="font-size:0.9em;color:var(--text2);">
-        <strong>→ 最小領域から攻める</strong><br>
-        2〜3マスの小さな領域が突破口になる。
-      </p>
-    </div>
-    <div style="background:var(--surface2);border-radius:8px;padding:16px;">
-      <p style="font-weight:700;color:var(--accent2);margin-bottom:6px;">✗だらけでどこにも置けない</p>
-      <p style="font-size:0.9em;color:var(--text2);">
-        <strong>→ 領域ごとに候補を数え直す</strong><br>
-        ✗の付け間違いの可能性も。一度リセットして再チェック。
-      </p>
-    </div>
-    <div style="background:var(--surface2);border-radius:8px;padding:16px;">
-      <p style="font-weight:700;color:var(--accent2);margin-bottom:6px;">猫を置いたのに連鎖しない</p>
-      <p style="font-size:0.9em;color:var(--text2);">
-        <strong>→ 斜め制約を再確認</strong><br>
-        周囲8マスに✗を入れたか？「斜めは大丈夫」が原因の大半。
-      </p>
-    </div>
-  </div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+<div style="background:var(--surface2);border-radius:8px;padding:16px;">
+<p style="font-weight:700;color:var(--accent2);margin-bottom:6px;">候補が 2 つあって選べない</p>
+<p style="font-size:0.9em;color:var(--text2);"><strong>→ 仮置き矛盾法</strong><br>片方を選んだ場合をシミュレーション。矛盾したらもう片方が正解。</p>
+</div>
+<div style="background:var(--surface2);border-radius:8px;padding:16px;">
+<p style="font-weight:700;color:var(--accent2);margin-bottom:6px;">盤面の半分が手つかず</p>
+<p style="font-size:0.9em;color:var(--text2);"><strong>→ 最小領域から攻める</strong><br>2〜3 マスの小さな領域が突破口になる。</p>
+</div>
+<div style="background:var(--surface2);border-radius:8px;padding:16px;">
+<p style="font-weight:700;color:var(--accent2);margin-bottom:6px;">✗だらけでどこにも置けない</p>
+<p style="font-size:0.9em;color:var(--text2);"><strong>→ 領域ごとに候補を数え直す</strong><br>✗の付け間違いの可能性も。一度リセットして再チェック。</p>
+</div>
+<div style="background:var(--surface2);border-radius:8px;padding:16px;">
+<p style="font-weight:700;color:var(--accent2);margin-bottom:6px;">猫を置いたのに連鎖しない</p>
+<p style="font-size:0.9em;color:var(--text2);"><strong>→ 斜め制約を再確認</strong><br>周囲 8 マスに✗を入れたか？「斜めは大丈夫」が原因の大半。</p>
+</div>
+</div>
 </div>
 </section>
-
 <section>
 <h2 class="section-title">🔥 レベル別構造パターン</h2>
 <p class="section-sub">各レベルの「型」を覚えると攻略が早くなる</p>
-
 <div class="card">
-  <table class="info-table">
-    <tr><th>レベル</th><th>サイズ</th><th>特徴的な構造</th><th>攻略のキー</th></tr>
-    <tr><td>Lv 1</td><td>5×5</td><td>基本5色、1匹固定猫</td><td>固定猫から✗を広げる基本練習</td></tr>
-    <tr><td>Lv 10</td><td>7×7</td><td>圧縮バンド出現</td><td>上部バンドを先に完成</td></tr>
-    <tr><td>Lv 39</td><td>7×7</td><td>ストリップ＋ブロック＋壁</td><td>細長い領域→ブロック→壁の順</td></tr>
-    <tr><td>Lv 100</td><td>9×9</td><td>両端に固定猫</td><td>中央から先に固める（橋渡し法）</td></tr>
-    <tr><td>Lv 124</td><td>9×9</td><td>1マス領域がスタート</td><td>最初の1匹が全ての鍵</td></tr>
-    <tr><td>Lv 150</td><td>9×9</td><td>狭まる廊下型</td><td>外側から徐々に内側へ</td></tr>
-    <tr><td>Lv 200</td><td>9×9</td><td>梯子→中央タワー</td><td>梯子を登ってから外殻を閉じる</td></tr>
-  </table>
-  <p style="font-size:0.85em;color:var(--text2);margin-top:8px;">※ 本家アプリはプロシージャル生成のため、同じレベル番号でもプレイヤーごとに盤面が異なる場合があります。上記は代表的なパターンの一例です。</p>
+<table class="info-table">
+<tr><th>レベル</th><th>サイズ</th><th>特徴的な構造</th><th>攻略のキー</th></tr>
+<tr><td>Lv 1</td><td>5×5</td><td>基本 5 色、1 匹固定猫</td><td>固定猫から✗を広げる基本練習</td></tr>
+<tr><td>Lv 10</td><td>7×7</td><td>圧縮バンド出現</td><td>上部バンドを先に完成</td></tr>
+<tr><td>Lv 20</td><td>8×8</td><td>細長い領域と広いブロック</td><td>細長→ブロックの順</td></tr>
+<tr><td>Lv 31</td><td>8×8</td><td>複数色の混合領域</td><td>ラインロック + 連鎖スキャン</td></tr>
+<tr><td>Lv 39</td><td>7×7</td><td>ストリップ＋ブロック＋壁</td><td>細長い領域→ブロック→壁の順</td></tr>
+<tr><td>Lv 100</td><td>9×9</td><td>両端に固定猫</td><td>中央から先に固める（橋渡し法）</td></tr>
+<tr><td>Lv 124</td><td>9×9</td><td>1 マス領域がスタート</td><td>最初の 1 匹が全ての鍵</td></tr>
+<tr><td>Lv 200</td><td>9×9</td><td>梯子→中央タワー</td><td>梯子を登ってから外殻を閉じる</td></tr>
+</table>
+<p style="font-size:0.85em;color:var(--text2);margin-top:8px;">※ 本家アプリはプロシージャル生成のため、同じレベル番号でもプレイヤーごとに盤面が異なる場合があります。上記は代表的なパターンの一例です。</p>
 </div>
 </section>
-
 <div class="page-nav">
-  <a href="walkthrough.html">← 実演解説</a>
-  <a href="index.html" class="next">📖 目次に戻る</a>
+<a href="walkthrough.html">← 実演解説</a>
+<a href="index.html" class="next">📖 目次に戻る</a>
 </div>
-
 </div>
-
-<footer>
-  <p>Meowdoku 解法ガイド — Unofficial fan guide</p>
-  <p>Meowdoku is a product of Oakever Games PTE. LTD.</p>
-</footer>
-
+<footer><p>Meowdoku 解法ガイド — Unofficial fan guide</p><p>Meowdoku is a product of Oakever Games PTE. LTD.</p></footer>
 </body>
 </html>
