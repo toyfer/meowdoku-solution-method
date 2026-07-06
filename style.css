@@ -1,49 +1,38 @@
-/* ===== Meowdoku 解法ガイド — 本家アプリビジュアル再現CSS ===== */
-/* カラーパレットは Oakever Games 本家 Lv20 スクリーンショット(8×8) から直接抽出 */
-
 /* ===== reset & base ===== */
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
-
 :root {
-  /* ---- 基本色 ---- */
   --white: #ffffff;
-  --bg: #f5efe7;                    /* 本家の柔らかいクリーム背景 */
+  --bg: #fdf6ee;
   --surface: #ffffff;
-  --surface2: #ede6d9;             /* カード背景 */
-  --surface3: #e2d5c2;             /* ホバー時等 */
-  --border: #d4c4ad;
-
-  /* ---- テキスト ---- */
-  --text: #3d3428;
-  --text2: #6b6054;
-  --accent: #d47642;               /* 本家オレンジアクセント */
+  --surface2: #faf5ed;
+  --surface3: #f0e8d8;
+  --border: #e5dccc;
+  --text: #2a2a2a;
+  --text2: #5a5550;
+  --accent: #d97742;
   --accent2: #b8860b;
-  --link: #4a90c4;
-
-  /* ---- 猫 & ✗ ---- */
-  --cat-bg: #2d2620;                /* 本家の濃い茶色（猫配置時） */
-  --cat-face: #fff;                /* 猫顔の白い部分 */
-  --x-bg: #ebe0d4;                /* ✗の背景色（淡いベージュ） */
-  --x-color: #8c5a4a;              /* ✗の茶色（本家準拠） */
-  --confirm: #4a9c6e;              /* 確定緑 */
-
-  /* ---- レイアウト ---- */
+  --link: #2b6cb0;
+  --cat-bg: #3a3028;
+  --x-color: #c0392b;
+  --confirm: #27ae60;
   --max-w: 880px;
   --font: 'Noto Sans JP','Hiragino Sans','Segoe UI',sans-serif;
 
-  /* ---- 本家領域色（Lv20スクショットから抽出・彩度高め） ---- */
-  /* A=紫 B=暗緑 C=明緑 D=ゴールド E=ローズ F=コーラル G=ティール H=ホットピンク */
-  --region-a: #a39bce;            /* ラベンダー紫 */
-  --region-b: #4a9464;            /* ダークフォレストグリーン */
-  --region-c: #7ecf82;            /* ライトミントグリーン */
-  --region-d: #dab24e;            /* マスタード/ゴールド */
-  --region-e: #de8ba0;            /* ダスティーピンク/ローズ */
-  --region-f: #eda566;            /* コーラル/オレンジ */
-  --region-g: #64b5cc;            /* ティール/シアンブルー */
-  --region-h: #ef8da6;            /* ホットピンク/マゼンタ */
+  /* Meowdoku official palette (high-saturation pastels) */
+  --m-purple:  #a48ce0;
+  --m-green:   #5cb874;
+  --m-lime:    #a8d66a;
+  --m-yellow:  #e8c740;
+  --m-pink:    #d97a9a;
+  --m-orange:  #f0a460;
+  --m-cyan:    #5cc4cc;
+  --m-magenta: #d97ab8;
+  --m-teal:    #6cb89a;
+  --m-coral:   #f08a7a;
+  --m-sky:     #6cb0e0;
+  --m-mint:    #88d0a8;
 }
-
 body {
   font-family: var(--font);
   background: var(--bg);
@@ -51,11 +40,11 @@ body {
   line-height: 1.85;
   font-size: 15px;
 }
-.container { max-width: var(--max-w); margin: 0 auto; padding: 0 20px; }
+.container { max-width:var(--max-w); margin:0 auto; padding:0 20px; }
 
 /* ===== header ===== */
 header {
-  background: linear-gradient(135deg, #faf6ed 0%, #f5ead9 50%, #faf2e4 100%);
+  background: linear-gradient(135deg, #faf6f0 0%, #f5ede4 50%, #faf0ea 100%);
   border-bottom: 2px solid var(--border);
   padding: 48px 0 36px;
   text-align: center;
@@ -65,7 +54,7 @@ header h1 {
   color: var(--accent);
   letter-spacing: -0.02em;
 }
-header .sub { color: var(--text2); font-size: 1em; margin-top: 8px; }
+header .sub { color: var(--text2); font-size:1em; margin-top:8px; }
 
 /* ===== nav ===== */
 nav {
@@ -92,11 +81,7 @@ nav ul li a {
   border-bottom: 2px solid transparent;
   transition: all 0.15s;
 }
-nav ul li a:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  background: rgba(212,118,66,0.05);
-}
+nav ul li a:hover { color: var(--accent); border-color: var(--accent); background: rgba(217,119,66,0.05); }
 
 /* ===== sections ===== */
 section { padding: 48px 0; }
@@ -116,28 +101,19 @@ section { padding: 48px 0; }
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: 10px;
   padding: 24px 28px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
 }
-.card h3 { font-size: 1.15em; font-weight: 700; margin-bottom: 10px; color: var(--accent2); }
-.card h4 { font-size: 1em; font-weight: 700; margin-bottom: 6px; color: var(--text); }
-.card p, .card li { color: var(--text2); line-height: 1.85; }
-.card ul, .card ol { padding-left: 20px; margin: 6px 0; }
-.card li { margin-bottom: 3px; }
+.card h3 { font-size:1.15em; font-weight:700; margin-bottom:10px; color: var(--accent2); }
+.card h4 { font-size:1em; font-weight:700; margin-bottom:6px; color: var(--text); }
+.card p, .card li { color: var(--text2); line-height:1.85; }
+.card ul, .card ol { padding-left:20px; margin:6px 0; }
+.card li { margin-bottom:3px; }
 
-/* ================================================================
-   盤面デザイン — 本家アプリのビジュアルを純CSSで再現
-   ・各セルに大きな丸角（border-radius: 16px）
-   ・セル間に隙間（gap: 7px）、背景色が透けて見える
-   ・インセットシャドウで立体的な「タイル」感
-   ・盤面全体も角丸＋影で浮いている感じ
-   ================================================================ */
-
+/* ===== board (Meowdoku-style) ===== */
 .board-row {
-  display: flex;
-  gap: 28px;
+  display: flex; gap: 24px;
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -146,126 +122,130 @@ section { padding: 48px 0; }
 .board-row figure {
   text-align: center;
   flex: 0 1 auto;
+  margin: 0;
 }
 .board-row figcaption {
-  font-size: 0.8em;
+  font-size: 0.82em;
   color: var(--text2);
   margin-top: 8px;
   max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
 }
-
-/* 盤面コンテナ — 本家のような角丸＋影 */
 .board {
   display: inline-grid;
-  gap: 7px;                          /* セル間の隙間（本家準拠） */
-  background: transparent;
-  padding: 10px;
-  border-radius: 22px;
-  box-shadow:
-    0 12px 30px rgba(0,0,0,0.10),
-    inset 0 4px 8px rgba(255,255,255,0.55);
+  gap: 4px;
+  background: var(--bg);
+  padding: 8px;
+  border-radius: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
-
-/* 各セル — 丸角タイル + インセットシャドウで立体感 */
 .cell {
-  width: 54px;
-  height: 54px;
-  border-radius: 16px;                 /* 大きな丸角（本家準拠） */
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.75em;
+  font-size: 1em;
   font-weight: 700;
   position: relative;
-  box-shadow:
-    0 3px 6px rgba(0,0,0,0.12),     /* 下方向の影 */
-    inset 0 2px 4px rgba(255,255,255,0.65),   /* 上からのハイライト */
-    inset 0 -2px 4px rgba(0,0,0,0.07);       /* 下への陰 */
-  transition: transform 0.2s ease;
-  background: #f9f5f0;
+  border-radius: 8px;
+  transition: transform 0.12s;
 }
-.cell:hover { transform: scale(1.04); }
-
-/* 領域ラベル（左上小文字） */
 .cell .rl {
   position: absolute;
-  top: 4px; left: 6px;
-  font-size: 0.45em;
-  font-weight: 700;
-  opacity: 0.55;
-  color: #5a4e42;
-  text-shadow: 0 1px 1px rgba(255,255,255,0.6);
+  top: 2px; left: 4px;
+  font-size: 0.5em;
+  font-weight: 600;
+  opacity: 0.75;
+  text-shadow: 0 0 2px rgba(255,255,255,0.8);
 }
 
-/* ----- 猫が置かれたセル ----- */
+/* Placed cat: white base with cat emoji + soft shadow */
 .cell.cat {
-  background: var(--cat-bg);          /* 濃い茶色背景 */
-  box-shadow:
-    0 4px 12px rgba(0,0,0,0.35),
-    inset 0 2px 4px rgba(255,255,255,0.18);
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.10);
 }
 .cell.cat::after {
-  content: '🐱';
-  font-size: 1.85em;
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+  content: '\1F431';
+  font-size: 1.5em;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.15));
 }
 
-/* ----- ✗マーク（本家準拠：茶色クロス）----- */
+/* X-mark: handwritten-style cross in soft red */
 .cell.x {
-  background: var(--x-bg);             /* 淡いベージュ背景 */
-  color: var(--x-color);              /* 茶色 */
-  font-size: 1.5em;
+  background: rgba(180, 60, 60, 0.10);
+  position: relative;
+}
+.cell.x::before,
+.cell.x::after {
+  content: '';
+  position: absolute;
+  background: #c0392b;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(192,57,43,0.3);
+}
+.cell.x::before {
+  width: 70%;
+  height: 3px;
+  top: 50%;
+  left: 15%;
+  transform: translateY(-50%) rotate(45deg);
 }
 .cell.x::after {
-  content: '✕';
-  font-weight: 900;
-  opacity: 0.75;
+  width: 70%;
+  height: 3px;
+  top: 50%;
+  left: 15%;
+  transform: translateY(-50%) rotate(-45deg);
 }
 
-/* ----- 次に置く確定マス（緑枠） ----- */
+/* Empty cell */
+.cell.em { background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+
+/* Next-move highlight (soft pulse + green ring) */
 .cell.em.next {
-  background: #eaf6eb;
-  box-shadow:
-    0 0 0 3.5px #4a9c6e,
-    0 4px 14px rgba(74,156,110,0.25),
-    inset 0 2px 4px rgba(255,255,255,0.6);
+  background: #fff;
+  box-shadow: 0 0 0 3px #27ae60, 0 2px 6px rgba(39,174,96,0.25);
+  animation: pulse 1.6s ease-in-out infinite;
 }
 .cell.em.next::after {
-  content: '✓';
-  color: #3d8060;
-  font-size: 1.15em;
-  font-weight: 900;
+  content: '\2713';
+  color: #27ae60;
+  font-size: 1em;
+  font-weight: 800;
+  text-shadow: 0 0 4px rgba(39,174,96,0.4);
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
 }
 
-/* ================================================================
-   領域色 — 本家Lv20スクショットから直接抽出した8色
-   彩度を上げて本家の「鮮やかさ」を再現
-   ================================================================ */
-.r-a  { background: var(--region-a); }  /* ラベンダー紫 */
-.r-b  { background: var(--region-b); }  /* ダークフォレストグリーン */
-.r-c  { background: var(--region-c); }  /* ライトミントグリーン */
-.r-d  { background: var(--region-d); }  /* マスタード/ゴールド */
-.r-e  { background: var(--region-e); }  /* ローズピンク */
-.r-f  { background: var(--region-f); }  /* コーラルオレンジ */
-.r-g  { background: var(--region-g); }  /* ティールブルー */
-.r-h  { background: var(--region-h); }  /* ホットピンク */
-.r-i  { background: var(--region-a); }  /* 拡張用（紫） */
-.r-j  { background: var(--region-e); }  /* 拡張用（ローズ） */
-.r-k  { background: var(--region-d); }  /* 拡張用（ゴールド） */
-.r-l  { background: var(--region-c); }  /* 拡張用（ミント） */
+/* ===== Meowdoku official color palette (12 regions) ===== */
+.r-a  { background: var(--m-purple); }   /* 紫 */
+.r-b  { background: var(--m-green); }    /* 深緑 */
+.r-c  { background: var(--m-lime); }     /* ライム */
+.r-d  { background: var(--m-yellow); }   /* 黄 */
+.r-e  { background: var(--m-pink); }     /* ピンク */
+.r-f  { background: var(--m-orange); }   /* オレンジ */
+.r-g  { background: var(--m-cyan); }     /* 水色 */
+.r-h  { background: var(--m-magenta); }  /* マゼンタ */
+.r-i  { background: var(--m-teal); }     /* ティール */
+.r-j  { background: var(--m-coral); }    /* コーラル */
+.r-k  { background: var(--m-sky); }      /* スカイ */
+.r-l  { background: var(--m-mint); }     /* ミント */
 
-/* 猫が乗っている時 → 濃い茶色で上書き */
-.cat.r-a,.cat.r-b,.cat.r-c,.cat.r-d,.cat.r-e,.cat.r-f,
-.cat.r-g,.cat.r-h,.cat.r-i,.cat.r-j,.cat.r-k,.cat.r-l {
-  background: var(--cat-bg);
-  color: #fff;
+/* Override for placed cat and X cells — these always show on white */
+.cell.cat.r-a,.cell.cat.r-b,.cell.cat.r-c,.cell.cat.r-d,
+.cell.cat.r-e,.cell.cat.r-f,.cell.cat.r-g,.cell.cat.r-h,
+.cell.cat.r-i,.cell.cat.r-j,.cell.cat.r-k,.cell.cat.r-l {
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.10);
 }
-
-/* ✗が乗っている時 → 淡いベージュで上書き */
-.x.r-a,.x.r-b,.x.r-c,.x.r-d,.x.r-e,.x.r-f,
-.x.r-g,.x.r-h,.x.r-i,.x.r-j,.x.r-k,.x.r-l {
-  background: var(--x-bg);
-  color: var(--x-color);
+.cell.x.r-a,.cell.x.r-b,.cell.x.r-c,.cell.x.r-d,
+.cell.x.r-e,.cell.x.r-f,.cell.x.r-g,.cell.x.r-h,
+.cell.x.r-i,.cell.x.r-j,.cell.x.r-k,.cell.x.r-l {
+  background: rgba(180, 60, 60, 0.10);
 }
 
 /* ===== page nav ===== */
@@ -273,138 +253,141 @@ section { padding: 48px 0; }
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  margin: 40px 0 20px;
-  padding-top: 24px;
+  margin: 30px 0 10px;
+  padding-top: 20px;
   border-top: 1px solid var(--border);
 }
 .page-nav a {
   display: inline-block;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 6px;
   color: var(--text2);
   text-decoration: none;
-  font-size: 0.9em;
-  transition: all 0.2s;
+  font-size: 0.88em;
+  transition: all 0.15s;
 }
 .page-nav a:hover {
   border-color: var(--accent);
   color: var(--accent);
-  background: #fffaf0;
 }
 .page-nav .next { margin-left: auto; }
 
-/* ===== misc boxes ===== */
-.tip, .warn {
-  border-radius: 14px;
-  padding: 18px 22px;
-  margin: 16px 0;
-}
+/* ===== misc ===== */
 .tip {
-  background: #fdf8ee;
+  background: #fdf6ee;
   border: 1px solid #f0dcc0;
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 14px 0;
 }
 .tip strong { color: var(--accent2); }
 .warn {
-  background: #fef2f0;
+  background: #fef0ee;
   border: 1px solid #f5c6bb;
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 14px 0;
 }
 .warn strong { color: var(--x-color); }
 
 .steps { counter-reset: step; }
 .steps li {
   list-style: none;
-  padding: 14px 18px 14px 54px;
+  padding: 12px 16px 12px 52px;
   position: relative;
   background: var(--surface2);
-  border-radius: 12px;
-  margin-bottom: 10px;
-  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  border-left: 3px solid var(--accent);
 }
 .steps li::before {
   counter-increment: step;
   content: counter(step);
   position: absolute;
-  left: 14px; top: 14px;
-  width: 28px; height: 28px;
+  left: 12px; top: 12px;
+  width: 26px; height: 26px;
   background: var(--accent);
-  color: white;
+  color: #fff;
   font-weight: 800;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85em;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  font-size: 0.8em;
 }
 
 .badge {
   display: inline-block;
-  padding: 2px 10px;
+  padding: 1px 8px;
   border-radius: 20px;
   font-size: 0.72em;
   font-weight: 700;
 }
-.badge-easy   { background: #e8f5e9; color: #2e7d32; }
+.badge-easy { background: #e8f5e9; color: #2e7d32; }
 .badge-medium { background: #fff8e1; color: #f57f17; }
-.badge-hard   { background: #fce4ec; color: #c62828; }
+.badge-hard { background: #fce4ec; color: #c62828; }
 
-.info-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 12px 0;
-  font-size: 0.88em;
-}
-.info-table th, .info-table td {
-  padding: 10px 14px;
-  border: 1px solid var(--border);
-  text-align: left;
-}
-.info-table th { background: var(--surface2); color: var(--accent2); font-weight: 700; }
+.info-table { width:100%; border-collapse:collapse; margin:12px 0; font-size:0.88em; }
+.info-table th,.info-table td { padding:10px 14px; border:1px solid var(--border); text-align:left; }
+.info-table th { background: var(--surface2); color: var(--accent2); font-weight:700; }
 .info-table td { background: var(--surface); color: var(--text2); }
 .info-table tr:hover td { background: var(--surface3); }
 
 .legend {
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-  margin: 16px 0;
-  padding: 18px;
-  background: var(--surface2);
-  border-radius: 14px;
+  display: flex; gap: 16px; flex-wrap: wrap;
+  margin: 12px 0; padding: 14px;
+  background: var(--surface2); border-radius: 6px;
 }
 .legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.85em;
-  color: var(--text2);
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.82em; color: var(--text2);
 }
 .legend-item .sw {
-  width: 26px; height: 26px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1em;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.10);
+  width: 22px; height: 22px; border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65em;
 }
 
 footer {
   text-align: center;
-  padding: 40px 20px 30px;
+  padding: 32px 20px;
   color: var(--text2);
-  font-size: 0.85em;
+  font-size: 0.82em;
   border-top: 1px solid var(--border);
 }
 
-/* ===== annotation ===== */
+@media (max-width:600px) {
+  .cell { width:36px; height:36px; font-size:0.95em; }
+  .cell .rl { font-size:0.4em; }
+  .board { gap: 3px; padding: 5px; }
+  .board-row { gap:12px; }
+  header h1 { font-size:1.6em; }
+  .section-title { font-size:1.4em; }
+  .card { padding:18px; }
+}
+
+/* ===== reason marks ===== */
+.reason {
+  display: inline-block;
+  font-size: 0.55em;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 2px;
+  font-weight: 500;
+}
+.reason-row { background: #fde9d9; color: #a0522d; }
+.reason-col { background: #d9edf7; color: #1a5276; }
+.reason-diag { background: #f9e6e6; color: #922b21; }
+.reason-reg { background: #e8d5f5; color: #6c3483; }
+
+/* annotation */
 .annot {
   font-size: 0.8em;
   color: var(--text2);
   padding: 8px 12px;
   background: var(--surface2);
-  border-radius: 8px;
+  border-radius: 6px;
   margin: 4px 0;
   font-weight: 400;
 }
@@ -413,30 +396,4 @@ footer {
   background: var(--surface3);
   padding: 1px 5px;
   border-radius: 3px;
-}
-
-/* ===== reason mark badges ===== */
-.reason {
-  display: inline-block;
-  font-size: 0.52em;
-  padding: 1px 5px;
-  border-radius: 4px;
-  margin-left: 3px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-.reason-row  { background: #fbe8cc; color: #a0522d; }
-.reason-col  { background: #d6ebf5; color: #1a5276; }
-.reason-diag { background: #faddd8; color: #922b21; }
-.reason-reg  { background: #e8d5f5; color: #6c3483; }
-
-/* ===== responsive ===== */
-@media (max-width: 640px) {
-  .cell { width: 42px; height: 42px; font-size: 1.35em; }
-  .cell.cat::after { font-size: 1.5em; }
-  .board { gap: 5px; padding: 8px; border-radius: 18px; }
-  header h1 { font-size: 1.75em; }
-  .section-title { font-size: 1.45em; }
-  .card { padding: 18px; border-radius: 14px; }
-  .cell .rl { font-size: 0.38em; }
 }
