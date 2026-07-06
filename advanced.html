@@ -3,133 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上級手法 — Meowdoku 解法ガイド</title>
+<title>上級手法 — Meowdoku</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
-  <div class="container">
-    <h1>🐱 上級手法</h1>
-    <p class="sub">Ultra / 大盤面で真価を発揮する高度な論理</p>
-  </div>
-</header>
-
-<nav>
-  <ul>
-    <li><a href="index.html">📖 目次</a></li>
-    <li><a href="basics.html">基本</a></li>
-    <li><a href="core.html">核心</a></li>
-    <li><a href="intermediate.html">中級</a></li>
-    <li><a href="advanced.html" style="color:var(--accent);border-color:var(--accent);">上級</a></li>
-    <li><a href="walkthrough.html">実演</a></li>
-    <li><a href="hard.html">Hard攻略</a></li>
-  </ul>
-</nav>
-
+<header><div class="container"><h1>🐱 上級手法</h1><p class="sub">8×8 以上の盤面で真価を発揮する高度な論理</p></div></header>
+<nav><ul>
+<li><a href="index.html">📖 目次</a></li>
+<li><a href="basics.html">基本</a></li>
+<li><a href="core.html">核心</a></li>
+<li><a href="intermediate.html">中級</a></li>
+<li><a href="advanced.html" style="color:var(--accent);border-color:var(--accent);">上級</a></li>
+<li><a href="walkthrough.html">実演</a></li>
+<li><a href="hard.html">Hard攻略</a></li>
+</ul></nav>
 <div class="container">
-
 <section>
 <h2 class="section-title">⭐⭐⭐ 上級1：終盤スイープ</h2>
 <p class="section-sub">「残り数匹になったら、残った行・列・領域をマッチングする」</p>
-
 <div class="card">
-  <p>盤面の8割が埋まり、残り数匹だけになった「終盤」。この状況での強力な手法が終盤スイープです。</p>
-
-  <h4>手順</h4>
-  <div class="steps">
-    <li><strong>未使用の行・列をリストアップ</strong> — まだ猫が1匹も入っていない行と列を書き出す</li>
-    <li><strong>残りの領域をリストアップ</strong> — 未配置の領域を書き出す</li>
-    <li><strong>マッチング</strong> — 各領域が「どの未使用の行・列に置けるか」をチェック</li>
-    <li><strong>強制配置を探す</strong> — 「この領域はこの行にしか置けない」が見つかれば確定</li>
-    <li><strong>ドミノ倒し</strong> — 1つ確定すると残りが連鎖的に決まる</li>
-  </div>
-
-  <div class="tip">
-    <strong>具体例：Level 124</strong><br>
-    9×9盤面 Level 124 の最終配置（一例）：<br>
-    <code style="display:block;margin-top:6px;background:var(--surface2);padding:10px;border-radius:4px;font-size:0.85em;">R1C3, R2C1, R3C5, R4C8, R5C2, R6C7, R7C9, R8C6, R9C4</code><br>
-    最後の1匹は「残った唯一の行と唯一の列の交点」——これが終盤スイープの典型です。<br>
-    <span style="font-size:0.85em;color:var(--text2);">※本家アプリはプロシージャル生成のため、同じレベル番号でもプレイヤーごとに盤面が異なる場合があります。上記はあくまで一例です。</span>
-  </div>
+<p>盤面の 8 割が埋まり、残り数匹だけになった「終盤」。この状況での強力な手法が<strong>終盤スイープ</strong>。</p>
+<h4>手順</h4>
+<div class="steps">
+<li><strong>未使用の行・列をリストアップ</strong> — まだ猫が 1 匹も入っていない行と列を書き出す</li>
+<li><strong>残りの領域をリストアップ</strong> — 未配置の領域を書き出す</li>
+<li><strong>マッチング</strong> — 各領域が「どの未使用の行・列に置けるか」をチェック</li>
+<li><strong>強制配置を探す</strong> — 「この領域はこの行にしか置けない」が見つかれば確定</li>
+<li><strong>ドミノ倒し</strong> — 1 つ確定すると残りが連鎖的に決まる</li>
+</div>
+<h4>図解（8×8 終盤・5 匹配置済み）</h4>
+<p>8×8 で 5 匹配置済みの状態。残った 3 匹の行・列・領域マッチングで確定を探します：</p>
+<div class="board-row"><figure>
+<div class="board" style="grid-template-columns:repeat(8,40px);grid-template-rows:repeat(8,40px);">
+<div class="cell x r-a"></div><div class="cell em r-a"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell cat r-b"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell em r-c"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell x r-e"></div><div class="cell x r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell x r-e"></div><div class="cell x r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell cat r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-e"></div><div class="cell x r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell x r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell x r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+</div>
+<figcaption>8×8 終盤。5 匹配置済み。残った黄緑 C・ピンク E・オレンジ F の配置をマッチングで探す</figcaption>
+</figure></div>
+<div class="tip"><strong>具体例</strong><br>8×8 終盤の最後の 1 匹は「残った唯一の行と唯一の列の交点」——これが終盤スイープの典型です。<br><span style="font-size:0.85em;color:var(--text2);">※本家アプリはプロシージャル生成のため、同じレベル番号でもプレイヤーごとに盤面が異なる場合があります。</span></div>
 </div>
 </section>
-
 <section>
 <h2 class="section-title">⭐⭐⭐ 上級2：仮置き矛盾法</h2>
 <p class="section-sub">「もしここに置いたら矛盾する → よってここには置けない」</p>
-
 <div class="card">
-  <p>Hardレベルでは、直接的な✗だけでは候補が絞りきれない場面があります。そんな時は <strong>「このマスに仮に猫を置いたら、どこかに矛盾が生じるか？」</strong> を検証します。</p>
-
-  <h4>手順</h4>
-  <div class="steps">
-    <li>候補が <strong>2つだけ</strong> になったマスを特定する</li>
-    <li>片方に「仮に」猫を置いたとする</li>
-    <li>そこから連鎖的に✗を適用していく</li>
-    <li>矛盾が見つかったら → そのマスは✗（証明完了）</li>
-    <li>→ もう片方が自動的に正解</li>
-  </div>
-
-  <h4>「推測」との違い</h4>
-  <p>推測は「根拠なく選ぶ」こと。仮置き矛盾法は <strong>「もしAならば矛盾する。よってAではない」</strong> という数学の背理法と全く同じ論理構造です。立派な <strong>論理的証明</strong> です。</p>
-
-  <div class="tip">
-    <strong>使用上の注意</strong><br>
-    まず基本〜中級のテクニックをすべて試した後で使います。候補が <strong>2つまで絞れた</strong> 場面でのみ有効。3つ以上の状態で使うと複雑になりすぎます。
-  </div>
+<p>Hard レベルでは、直接的な✗だけでは候補が絞りきれない場面があります。そんな時は <strong>「このマスに仮に猫を置いたら、どこかに矛盾が生じるか？」</strong> を検証します。</p>
+<h4>手順</h4>
+<div class="steps">
+<li>候補が <strong>2 つだけ</strong> になったマスを特定する</li>
+<li>片方に「仮に」猫を置いたとする</li>
+<li>そこから連鎖的に✗を適用していく</li>
+<li>矛盾が見つかったら → そのマスは✗（証明完了）</li>
+<li>→ もう片方が自動的に正解</li>
+</div>
+<h4>「推測」との違い</h4>
+<p>推測は「根拠なく選ぶ」こと。仮置き矛盾法は <strong>「もし A ならば矛盾する。よって A ではない」</strong> という数学の背理法と全く同じ論理構造。立派な <strong>論理的証明</strong> です。</p>
+<div class="tip"><strong>使用上の注意</strong><br>まず基本〜中級をすべて試した後で使います。候補が <strong>2 つまで絞れた</strong> 場面でのみ有効。3 つ以上の状態で使うと複雑になりすぎ。</div>
 </div>
 </section>
-
 <section>
 <h2 class="section-title">⭐⭐⭐ 上級3：橋渡し法</h2>
 <p class="section-sub">「固定猫を橋の両端と見なし、中央から解く」</p>
-
 <div class="card">
-  <p>Level 100以降の大盤面では、盤面の両端に <strong>固定猫（プリセット）</strong> が現れます。このとき、外側から順に解こうとすると行き詰まります。</p>
-
-  <p>固定猫を「橋の両端」と見なし、<strong>まず中央の領域を解く</strong> ことで橋を架けるように攻略します。中央は両方の固定猫の行・列・斜め制約が重なるため、候補が急減してシングルが発生しやすくなります。</p>
-
-  <div class="tip">
-    <strong>なぜ中央からか</strong><br>
-    外側の領域は多くの行・列にまたがって大きく、候補が多すぎて絞りきれません。中央は両方の固定猫の制約が重なって最速で候補が減るため、シングルが発生しやすい——だから中央優先です。
-  </div>
+<p>Hard レベルの 8×8 盤面では、盤面の両端に <strong>固定猫（プリセット）</strong> が現れることがあります。このとき、外側から順に解こうとすると行き詰まります。</p>
+<p>固定猫を「橋の両端」と見なし、<strong>まず中央の領域を解く</strong> ことで橋を架けるように攻略します。中央は両方の固定猫の行・列・斜め制約が重なるため、候補が急減してシングルが発生しやすくなります。</p>
+<div class="tip"><strong>なぜ中央からか</strong><br>外側の領域は多くの行・列にまたがって大きく、候補が多すぎて絞りきれない。中央は両方の固定猫の制約が重なって最速で候補が減るため、シングルが発生しやすい——だから中央優先です。</div>
 </div>
 </section>
-
 <section>
 <h2 class="section-title">⭐⭐⭐ 上級4：デコイの見破り</h2>
 <p class="section-sub">「一番大きな領域が正解とは限らない」</p>
-
 <div class="card">
-  <p>盤面で最も大きくカラフルな領域は、しばしば <strong>デコイ（おとり）</strong> です。初心者は「大きいところから片付けよう」と考えますが、実際は <strong>小さい領域に集中した方が早い</strong>。</p>
-
-  <p>パズル設計者は、見た目の印象と実際の解法順序にギャップを作って難易度を上げています。大きな領域は候補が多すぎて確定の手がかりが少ない——だから後回しにすべきです。</p>
-
-  <h4>攻略の優先順位</h4>
-  <table class="info-table">
-    <tr><th>優先度</th><th>対象</th><th>理由</th></tr>
-    <tr><td>🥇 最優先</td><td>1マスしかない領域</td><td>即確定。迷う余地なし</td></tr>
-    <tr><td>🥈 次点</td><td>2〜3マスの小さな領域</td><td>候補が少なく、制約で即絞られる</td></tr>
-    <tr><td>🥉 基本</td><td>固定猫の周辺</td><td>大量の✗を生む連鎖の起点</td></tr>
-    <tr><td>⚠ 後回し</td><td>大きく広がった領域</td><td>デコイの可能性大。他が埋まってから</td></tr>
-  </table>
+<p>盤面で最も大きくカラフルな領域は、しばしば <strong>デコイ（おとり）</strong>。初心者は「大きいところから片付けよう」と考えますが、実際は <strong>小さい領域に集中した方が早い</strong>。</p>
+<h4>攻略の優先順位（8×8 盤面向け）</h4>
+<table class="info-table">
+<tr><th>優先度</th><th>対象</th><th>理由</th></tr>
+<tr><td>🥇 最優先</td><td>1 マスしかない領域</td><td>即確定。迷う余地なし</td></tr>
+<tr><td>🥈 次点</td><td>2〜3 マスの小さな領域</td><td>候補が少なく、制約で即絞られる</td></tr>
+<tr><td>🥉 基本</td><td>固定猫の周辺</td><td>大量の✗を生む連鎖の起点</td></tr>
+<tr><td>⚠ 後回し</td><td>大きく広がった領域</td><td>デコイの可能性大。他が埋まってから</td></tr>
+</table>
 </div>
 </section>
-
 <div class="page-nav">
-  <a href="intermediate.html">← 中級手法</a>
-  <a href="walkthrough.html" class="next">次のページ：実演解説 →</a>
+<a href="intermediate.html">← 中級手法</a>
+<a href="walkthrough.html" class="next">次のページ：実演解説 →</a>
 </div>
-
 </div>
-
-<footer>
-  <p>Meowdoku 解法ガイド — Unofficial fan guide</p>
-  <p>Meowdoku is a product of Oakever Games PTE. LTD.</p>
-</footer>
-
+<footer><p>Meowdoku 解法ガイド — Unofficial fan guide</p><p>Meowdoku is a product of Oakever Games PTE. LTD.</p></footer>
 </body>
 </html>
