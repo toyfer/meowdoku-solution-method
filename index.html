@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meowdoku 解法完全ガイド — 論理で解く猫パズル</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0f1a;
+  --surface: #1a1a2e;
+  --surface2: #222240;
+  --surface3: #2a2a4a;
+  --border: #3a3a5a;
+  --text: #e8e8f0;
+  --text2: #a0a0c0;
+  --accent: #f7a072;
+  --accent2: #ffd166;
+  --cat: #ff6b6b;
+  --x-color: #ef476f;
+  --confirm: #06d6a0;
+  --blue: #118ab2;
+  --purple: #9b5de5;
+  --orange: #fb8500;
+  --pink: #ff006e;
+  --teal: #00bbf9;
+  --green: #8ac926;
+  --max-w: 960px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  font-size: 15px;
+}
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+/* Header */
+header {
+  background: linear-gradient(135deg, #1a1a3e 0%, #2a1a3e 50%, #1a2a3e 100%);
+  border-bottom: 2px solid var(--border);
+  padding: 60px 0 50px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(247,160,114,0.08) 0%, transparent 50%),
+              radial-gradient(circle at 70% 50%, rgba(255,209,102,0.08) 0%, transparent 50%);
+}
+header h1 {
+  font-size: 2.6em;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+header .sub {
+  color: var(--text2);
+  font-size: 1.05em;
+  margin-top: 12px;
+  position: relative;
+}
+header .cat-icons {
+  font-size: 2em;
+  margin-top: 16px;
+  letter-spacing: 6px;
+  position: relative;
+}
+
+/* Nav */
+nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+nav ul {
+  display: flex;
+  gap: 2px;
+  list-style: none;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 12px;
+}
+nav ul li a {
+  display: block;
+  padding: 14px 16px;
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 0.85em;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.2s;
+  border-bottom: 2px solid transparent;
+}
+nav ul li a:hover, nav ul li a.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  background: rgba(247,160,114,0.05);
+}
+
+/* Sections */
+section { padding: 60px 0; border-bottom: 1px solid var(--border); }
+section:last-child { border-bottom: none; }
+.section-title {
+  font-size: 1.8em;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--accent);
+}
+.section-sub {
+  color: var(--text2);
+  font-size: 0.95em;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Cards */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 24px;
+}
+.card h3 {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--accent2);
+}
+.card h4 {
+  font-size: 1.05em;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.card p, .card li { color: var(--text2); line-height: 1.9; }
+.card ul, .card ol { padding-left: 20px; margin: 8px 0; }
+.card li { margin-bottom: 4px; }
+.card .highlight { color: var(--accent); font-weight: 600; }
+
+/* Board grid */
+.board-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+.board {
+  display: inline-grid;
+  gap: 2px;
+  background: var(--border);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.board .cell {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  font-weight: 700;
+  position: relative;
+  transition: all 0.15s;
+}
+.board .cell .region-label {
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  font-size: 0.5em;
+  font-weight: 400;
+  opacity: 0.6;
+}
+.board .cell.cat { background: #3a2a3a; }
+.board .cell.cat::after { content: '🐱'; font-size: 1.4em; }
+.board .cell.x { background: #2a1a2a; }
+.board .cell.x::after { content: '✗'; color: var(--x-color); font-size: 1.2em; font-weight: 800; }
+.board .cell.empty { background: var(--surface2); }
+.board .cell.empty.hint { background: #2a3a2a; }
+.board .cell.empty.hint::after { content: '✓'; color: var(--confirm); font-size: 1em; }
+
+/* Region colors */
+.r-a { background: #4a2a5a; } .r-b { background: #2a4a3a; } .r-c { background: #3a3a5a; }
+.r-d { background: #5a3a2a; } .r-e { background: #2a3a5a; } .r-f { background: #5a2a3a; }
+.r-g { background: #3a5a3a; } .r-h { background: #5a4a2a; } .r-i { background: #4a3a2a; }
+.r-j { background: #2a4a4a; } .r-k { background: #4a2a3a; } .r-l { background: #3a4a2a; }
+.cat .r-a, .cat .r-b, .cat .r-c, .cat .r-d, .cat .r-e, .cat .r-f,
+.cat .r-g, .cat .r-h, .cat .r-i, .cat .r-j, .cat .r-k, .cat .r-l { background: #3a2a3a; }
+.x .r-a, .x .r-b, .x .r-c, .x .r-d, .x .r-e, .x .r-f,
+.x .r-g, .x .r-h, .x .r-i, .x .r-j, .x .r-k, .x .r-l { background: #2a1a2a; }
+
+/* Two-column layout */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+/* Step list */
+.steps { counter-reset: step; }
+.steps li {
+  list-style: none;
+  padding: 16px 20px 16px 60px;
+  position: relative;
+  background: var(--surface2);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border-left: 3px solid var(--accent);
+}
+.steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  color: #000;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85em;
+}
+
+/* Tip box */
+.tip {
+  background: linear-gradient(135deg, rgba(247,160,114,0.08), rgba(255,209,102,0.08));
+  border: 1px solid rgba(247,160,114,0.3);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 16px 0;
+}
+.tip strong { color: var(--accent2); }
+.warn {
+  background: linear-gradient(135deg, rgba(239,71,111,0.08), rgba(255,107,107,0.08));
+  border: 1px solid rgba(239,71,111,0.3);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 16px 0;
+}
+.warn strong { color: var(--x-color); }
+
+/* Legend */
+.legend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+  padding: 16px;
+  background: var(--surface2);
+  border-radius: 8px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85em;
+  color: var(--text2);
+}
+.legend-item .swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7em;
+}
+
+/* Table */
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 0.9em;
+}
+.info-table th, .info-table td {
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+.info-table th {
+  background: var(--surface2);
+  color: var(--accent2);
+  font-weight: 700;
+}
+.info-table td { background: var(--surface); color: var(--text2); }
+.info-table tr:hover td { background: var(--surface3); }
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text2);
+  font-size: 0.85em;
+  border-top: 1px solid var(--border);
+}
+
+/* Difficulty badge */
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  font-weight: 700;
+}
+.badge-easy { background: rgba(6,214,160,0.15); color: var(--confirm); }
+.badge-medium { background: rgba(255,209,102,0.15); color: var(--accent2); }
+.badge-hard { background: rgba(239,71,111,0.15); color: var(--x-color); }
+
+/* Subtitle */
+.technique-subtitle {
+  display: inline-block;
+  font-size: 0.8em;
+  background: var(--surface3);
+  padding: 2px 12px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>🐱 Meowdoku 解法完全ガイド</h1>
+    <p class="sub">猫たちの縄張りを論理で解き明かす — 4つのルールから始める段階的アプローチ</p>
+    <div class="cat-icons">🐈 🐈‍⬛ 🐱 🐈 🐈‍⬛</div>
+  </div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#intro">はじめに</a></li>
+    <li><a href="#basic">基本手法</a></li>
+    <li><a href="#intermediate">中級手法</a></li>
+    <li><a href="#advanced">上級手法</a></li>
+    <li><a href="#hard">Hard攻略</a></li>
+    <li><a href="#summary">総まとめ</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+<!-- ============================================================ -->
+<section id="intro">
+<h2 class="section-title">🐾 はじめに — Meowdokuとは</h2>
+<p class="section-sub">たった4つのルールで構成される、純粋な論理パズル</p>
+
+<div class="card">
+  <h3>4つの基本ルール</h3>
+  <p>Meowdokuは、数独 (Sudoku) の厳密な推論とマインスイーパの推理を融合させたパズルです。<br>
+  <strong>推測は不要。</strong>すべての盤面は論理だけで解けるよう設計されています。</p>
+
+  <div class="two-col" style="margin-top:16px;">
+    <div class="tip" style="margin:0;">
+      <strong>ルール①</strong><br>
+      各色の領域に猫は <strong>1匹だけ</strong>
+    </div>
+    <div class="tip" style="margin:0;">
+      <strong>ルール②</strong><br>
+      同じ <strong>行・列</strong> に猫は2匹いない
+    </div>
+    <div class="tip" style="margin:0;">
+      <strong>ルール③</strong><br>
+      <strong>斜め隣接</strong>も禁止（周囲8マス全て）
+    </div>
+    <div class="tip" style="margin:0;">
+      <strong>ルール④</strong><br>
+      推測禁止 — <strong>論理のみ</strong>で解く
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>このガイドの読み方</h3>
+  <ul>
+    <li><strong>基本手法</strong>（⭐）: 初心者でもすぐに使える、最も重要なテクニック</li>
+    <li><strong>中級手法</strong>（⭐⭐）: Hardレベルで頻出するパターン認識</li>
+    <li><strong>上級手法</strong>（⭐⭐⭐）: Ultra / 大盤面で威力を発揮する高度な論理</li>
+  </ul>
+  <div class="tip">
+    <strong>なぜ「なぜ」が重要なのか</strong><br>
+    Meowdokuで上達する鍵は「ここに猫が置ける」ではなく<strong>「ここにしか猫が置けない理由」</strong>を理解することです。各テクニックでは「なぜその手が正しいのか」を徹底解説します。
+  </div>
+</div>
+
+<div class="card">
+  <h3>盤面の見方</h3>
+  <div class="legend">
+    <div class="legend-item"><div class="swatch" style="background:#3a2a3a;">🐱</div> 確定した猫</div>
+    <div class="legend-item"><div class="swatch" style="background:#2a1a2a;color:#ef476f;">✗</div> 猫を置けないマス</div>
+    <div class="legend-item"><div class="swatch" style="background:#2a3a2a;color:#06d6a0;">✓</div> 次に確定する場所</div>
+    <div class="legend-item"><div class="swatch" style="background:#4a2a5a;">A</div> 色の領域（A, B, C…）</div>
+    <div class="legend-item"><div class="swatch" style="background:var(--surface2);"></div> 未確定の空マス</div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="basic">
+<h2 class="section-title">⭐ 基本手法</h2>
+<p class="section-sub">すべての攻略の基礎となる最重要テクニック</p>
+
+<!-- --- Basic 1 --- -->
+<div class="card">
+  <h3>基本1：Xマークの原則 — 「置けない」を先に証明する</h3>
+  <p><span class="badge badge-easy">EASY</span> <span class="technique-subtitle">全レベルの基本動作</span></p>
+  <p>初心者は「どこに猫を置けるか」を探します。<strong>上級者は先に「どこに猫を置けないか」を証明します。</strong><br>
+  猫を置く前に、盤面中の「絶対に猫を置けないマス」を✗で埋めていくことが、すべての解法の第一歩です。</p>
+
+  <h4>なぜこれが最優先なのか</h4>
+  <p>Meowdokuのルールは「禁止事項」で構成されています。行の共有禁止、列の共有禁止、斜め接触禁止 — これらはすべて <strong>「ここには猫がいてはいけない」</strong> という形で適用されます。「置ける場所」は、消去法で「置けない場所を全部消した残り」としてしか現れません。</p>
+
+  <h4>Xマークが発生する3つの条件</h4>
+  <ol>
+    <li><strong>行の共有:</strong> 猫が置かれた行は、残りすべてのマスが ✗</li>
+    <li><strong>列の共有:</strong> 猫が置かれた列は、残りすべてのマスが ✗</li>
+    <li><strong>斜め接触:</strong> 猫の周囲8マス（上下左右＋斜め4方向）はすべて ✗</li>
+  </ol>
+</div>
+
+<!-- --- Basic 2 --- -->
+<div class="card">
+  <h3>基本2：領域シングル — 「この色に残された1マス」</h3>
+  <p><span class="badge badge-easy">EASY</span> <span class="technique-subtitle">最も頻出する確定パターン</span></p>
+
+  <p>特定の色の領域の中で、猫を置ける空マスが <strong>1つしか残っていない</strong> 状態を「領域シングル」と呼びます。これは最も基本かつ強力な確定パターンです。</p>
+
+  <h4>具体例</h4>
+  <p>4×4の盤面で、領域A（紫色）に注目します。領域Aは4マスありますが、すでに3マスが行・列・斜めの制約で✗になっています。</p>
+
+  <div class="board-wrap">
+    <div class="board" style="grid-template-columns:repeat(4,50px);grid-template-rows:repeat(4,50px);">
+      <div class="cell cat r-a"><span class="region-label">A</span></div>
+      <div class="cell x r-a"><span class="region-label">A</span></div>
+      <div class="cell x r-b"><span class="region-label">B</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+      <div class="cell x r-a"><span class="region-label">A</span></div>
+      <div class="cell x r-a"><span class="region-label">A</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell x r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+      <div class="cell empty r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+      <div class="cell empty r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+    </div>
+  </div>
+
+  <p>— 領域Aの4マス中3マスが✗。残り1マス（R1C1）に猫が確定します。</p>
+
+  <div class="tip">
+    <strong>なぜこれが正しいのか</strong><br>
+    ルール①で「各色の領域に猫は1匹」と定められています。領域Aに残された空マスが1つしかなければ、<strong>そこに猫を置く以外に領域Aを満たす方法は存在しません。</strong>これは推測ではなく、ルールから導かれる必然です。
+  </div>
+</div>
+
+<!-- --- Basic 3 --- -->
+<div class="card">
+  <h3>基本3：行シングル・列シングル — 「この行で残された1マス」</h3>
+  <p><span class="badge badge-easy">EASY</span> <span class="technique-subtitle">領域と行・列の複合制約</span></p>
+
+  <p>ある行（または列）の中で、猫を置ける可能性のあるマスが <strong>1つしかない</strong> 状態を行シングル（または列シングル）と呼びます。領域の制約と行・列の制約が組み合わさることで発生します。</p>
+
+  <h4>具体例：行シングル</h4>
+  <p>3行目（R3）に注目します。R3には6マスありますが、他の領域の猫からの制約で5マスが✗になっています。</p>
+
+  <div class="board-wrap">
+    <div class="board" style="grid-template-columns:repeat(6,50px);grid-template-rows:repeat(3,50px);">
+      <div class="cell cat r-a"><span class="region-label">A</span></div>
+      <div class="cell x r-a"><span class="region-label">A</span></div>
+      <div class="cell x r-b"><span class="region-label">B</span></div>
+      <div class="cell x r-b"><span class="region-label">B</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell x r-c"><span class="region-label">C</span></div>
+      <div class="cell x r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-e"><span class="region-label">E</span></div>
+      <div class="cell x r-e"><span class="region-label">E</span></div>
+      <div class="cell empty r-f"><span class="region-label">F</span></div>
+      <div class="cell x r-f"><span class="region-label">F</span></div>
+      <div class="cell x r-g"><span class="region-label">G</span></div>
+      <div class="cell x r-g"><span class="region-label">G</span></div>
+      <div class="cell x r-h"><span class="region-label">H</span></div>
+      <div class="cell x r-h"><span class="region-label">H</span></div>
+      <div class="cell cat r-i"><span class="region-label">I</span></div>
+      <div class="cell x r-i"><span class="region-label">I</span></div>
+    </div>
+  </div>
+
+  <p>R3行で空マスは1つだけ（R3C5）。よって、ここに猫が確定します。</p>
+
+  <div class="tip">
+    <strong>なぜこれが正しいのか</strong><br>
+    ルール②で「1つの行に猫は1匹まで」と定められています。R3行の中で猫を置ける可能性があるマスが1つしかなければ、<strong>そこに猫を置く以外にR3行の条件を満たす方法はありません。</strong>これも推測ではなく、ルールからの必然です。
+  </div>
+</div>
+
+<!-- --- Basic 4 --- -->
+<div class="card">
+  <h3>基本4：連鎖の原則 — 「1匹が全てを変える」</h3>
+  <p><span class="badge badge-easy">EASY</span> <span class="technique-subtitle">最も重要な思考習慣</span></p>
+
+  <p>1匹の猫を置くと、<strong>行全体・列全体・周囲8マス・その猫の領域</strong>が一度に✗になります。これは1回のアクションで大量の情報が生まれることを意味します。</p>
+
+  <p>猫を置いたら、必ず以下の4つをチェックしてから次の手に進みます：</p>
+
+  <div class="steps">
+    <li><strong>行の再スキャン</strong> — 猫を置いた行全体を✗に。他の領域の候補が減っていないか？</li>
+    <li><strong>列の再スキャン</strong> — 猫を置いた列全体を✗に。列シングルが発生していないか？</li>
+    <li><strong>斜めの再スキャン</strong> — 周囲8マスを✗に。これで領域シングルが発生していないか？</li>
+    <li><strong>領域の再スキャン</strong> — 猫を置いた領域は完了。他の領域で候補が1つになっていないか？</li>
+  </div>
+
+  <div class="warn">
+    <strong>⚠ よくあるミス：</strong><br>
+    猫を置いたら嬉しくなって次の猫を探しに行ってしまう。しかし、<strong>新しい猫が生み出した✗マークが次の確定を生む</strong>のです。1匹置くたびに「連鎖」を意識的にスキャンする習慣が上達の鍵です。
+  </div>
+</div>
+
+</section>
+
+<!-- ============================================================ -->
+<section id="intermediate">
+<h2 class="section-title">⭐⭐ 中級手法</h2>
+<p class="section-sub">Hardレベルで頻出する、もう一段階深い論理</p>
+
+<!-- --- Intermediate 1 --- -->
+<div class="card">
+  <h3>中級1：領域消滅チェック — 「もしここに置いたら、別の領域が消える」</h3>
+  <p><span class="badge badge-medium">MEDIUM</span> <span class="technique-subtitle">Hard突破の最重要テクニック</span></p>
+
+  <p>「あるマスに猫を置くと、別の色の領域から猫を置けるマスがすべて消えてしまう」— この場合、そのマスには<strong>絶対に猫を置けません。</strong> これを「領域消滅チェック」と呼びます。</p>
+
+  <h4>なぜこれが起こるのか</h4>
+  <p>猫を置くと行・列・斜めの制約が発生します。これらの制約が、<strong>別の領域の全候補マスを覆い尽くしてしまった</strong>場合、その領域には猫を1匹も配置できなくなります。これはルール①（各領域に1匹）の違反なので、そのような置き方は不可能です。</p>
+
+  <h4>具体例</h4>
+  <p>以下の盤面で、R5C4（領域C内のマス）に猫を置こうとしています。</p>
+
+  <div class="board-wrap">
+    <div class="board" style="grid-template-columns:repeat(6,50px);grid-template-rows:repeat(6,50px);">
+      <div class="cell empty r-a"><span class="region-label">A</span></div>
+      <div class="cell empty r-a"><span class="region-label">A</span></div>
+      <div class="cell empty r-a"><span class="region-label">A</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+      <div class="cell empty r-a"><span class="region-label">A</span></div>
+      <div class="cell empty r-a"><span class="region-label">A</span></div>
+      <div class="cell empty r-a"><span class="region-label">A</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell x r-c" style="background:#2a1a2a;"><span class="region-label">C</span></div>
+      <div class="cell x r-d" style="background:#2a1a2a;"><span class="region-label">D</span></div>
+      <div class="cell empty r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-d"><span class="region-label">D</span></div>
+      <div class="cell x r-e"><span class="region-label">E</span></div>
+      <div class="cell x r-e"><span class="region-label">E</span></div>
+      <div class="cell empty r-e"><span class="region-label">E</span></div>
+      <div class="cell empty r-f"><span class="region-label">F</span></div>
+      <div class="cell empty r-f"><span class="region-label">F</span></div>
+      <div class="cell empty r-f"><span class="region-label">F</span></div>
+    </div>
+  </div>
+
+  <p>R5C3（既に✗のマス）に猫を置こうとしたとします。すると…</p>
+
+  <ol>
+    <li>R5行が閉鎖 → 領域EのR5C1, R5C2, R5C3がすべて✗</li>
+    <li>C3列が閉鎖 → 領域EのR6C3も✗</li>
+    <li>斜め制約でR4C2, R4C4, R6C2, R6C4も✗</li>
+  </ol>
+
+  <p>→ 領域Eのマスがすべて✗になり、領域Eに猫を置く場所がなくなります。<br>
+  → <strong>よってR5C3は✗（猫を置けない）。</strong></p>
+
+  <div class="tip">
+    <strong>このチェックのポイント</strong><br>
+    領域消滅チェックは「仮にここに置いたらどうなるか」を<strong>頭の中でシミュレーション</strong>します。これは推測ではなく、<strong>「もし置いたらルール違反になる」ことを論理的に証明している</strong>のです。
+  </div>
+</div>
+
+<!-- --- Intermediate 2 --- -->
+<div class="card">
+  <h3>中級2：隠れシングル — 領域内では複数候補でも、行または列で見ると1つ</h3>
+  <p><span class="badge badge-medium">MEDIUM</span> <span class="technique-subtitle">領域と行・列のクロスチェック</span></p>
+
+  <p>ある領域の中では複数の候補マスがあるように見えても、<strong>特定の行や列の中ではその領域のマスが1つしかない</strong>ため、結果的に1つに絞られるケースがあります。これが「隠れシングル」です。</p>
+
+  <h4>具体例</h4>
+  <p>領域Aは4マスありますが、そのうち3マスはC3列にあります。C3列に別の領域の猫がすでにいる場合：</p>
+
+  <div class="board-wrap">
+    <div class="board" style="grid-template-columns:repeat(4,50px);grid-template-rows:repeat(4,50px);">
+      <div class="cell empty r-a"><span class="region-label">A</span></div>
+      <div class="cell empty r-a"><span class="region-label">A</span></div>
+      <div class="cell x r-a" style="background:#2a1a2a;"><span class="region-label">A</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+      <div class="cell x r-a" style="background:#2a1a2a;"><span class="region-label">A</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+      <div class="cell cat r-d"><span class="region-label">D</span></div>
+      <div class="cell x r-d"><span class="region-label">D</span></div>
+      <div class="cell x r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+      <div class="cell x r-a" style="background:#2a1a2a;"><span class="region-label">A</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+    </div>
+  </div>
+
+  <p>領域Aは一見4マス中3マスが空いています。しかし詳しく見ると：</p>
+  <ul>
+    <li>領域Aの4マス中3マス（R1C3, R2C1, R4C1）は ✗ で埋まっている</li>
+    <li>残りはR1C2だけ → 領域シングル確定！</li>
+  </ul>
+
+  <div class="tip">
+    <strong>「隠れ」の意味</strong><br>
+    単に「領域の中で候補を数える」だけでは見つかりません。<strong>行・列・斜めの制約をすべて同時に考慮して初めて</strong>「あれ、この領域の候補って実は1つしかなかったんだ」と気づくパターンです。上級者はこれを無意識に行っています。
+  </div>
+</div>
+
+<!-- --- Intermediate 3 --- -->
+<div class="card">
+  <h3>中級3：斜め連鎖 — 「1匹の猫が隣接領域に与える波及効果」</h3>
+  <p><span class="badge badge-medium">MEDIUM</span> <span class="technique-subtitle">斜め制約を味方につける</span></p>
+
+  <p>猫1匹の斜め制約（周囲8マス）は、隣接する領域の候補を一気に削減します。特に <strong>細長い領域や小さな領域</strong> が斜め制約の範囲にかかると、領域全体が消滅したり、逆にシングルが発生したりします。</p>
+
+  <h4>斜め制約の範囲を可視化</h4>
+
+  <div class="board-wrap">
+    <div class="board" style="grid-template-columns:repeat(5,50px);grid-template-rows:repeat(5,50px);">
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell cat" style="background:#3a2a3a;"></div>
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell empty" style="background:var(--surface2);"></div>
+      <div class="cell empty" style="background:var(--surface2);"></div>
+      <div class="cell empty" style="background:var(--surface2);"></div>
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell empty" style="background:var(--surface2);"></div>
+      <div class="cell empty" style="background:var(--surface2);"></div>
+      <div class="cell empty" style="background:var(--surface2);"></div>
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell x" style="background:#2a1a2a;">✗</div>
+      <div class="cell empty" style="background:var(--surface2);"></div>
+      <div class="cell empty" style="background:var(--surface2);"></div>
+      <div class="cell empty" style="background:var(--surface2);"></div>
+    </div>
+  </div>
+
+  <p>中央の猫1匹が、周囲 <strong>8マス</strong> を✗にしています。この範囲内に領域の全候補が含まれている場合、その領域は「この猫のせいで消滅した」と判断でき、別の場所に猫を置く根拠になります。</p>
+
+  <div class="warn">
+    <strong>⚠ 最もよくある間違い：</strong><br>
+    多くのプレイヤーは <strong>斜め制約を忘れます。</strong>「上下左右だけブロックすれば良い」と思い込んでしまい、「斜めだから大丈夫」と勘違いします。しかしMeowdokuでは <strong>斜めも「接触」扱い</strong> です。猫を置くたびに「周囲8マス全部✗」と意識してください。
+  </div>
+</div>
+
+</section>
+
+<!-- ============================================================ -->
+<section id="advanced">
+<h2 class="section-title">⭐⭐⭐ 上級手法</h2>
+<p class="section-sub">Ultra / 大盤面で真価を発揮する応用テクニック</p>
+
+<!-- --- Advanced 1 --- -->
+<div class="card">
+  <h3>上級1：仮置き矛盾法（Proof by Contradiction）</h3>
+  <p><span class="badge badge-hard">HARD</span> <span class="technique-subtitle">最後の手段ではなく、論理の延長</span></p>
+
+  <p>Hard / Ultraレベルでは、直接的な✗マークだけでは候補が絞りきれない場面があります。そんな時は <strong>「このマスに仮に猫を置いたら、どこかに矛盾が生じるか？」</strong> を検証します。</p>
+
+  <h4>なぜこれが「推測」ではないのか</h4>
+  <p>推測とは「根拠なく選ぶ」ことです。仮置き矛盾法は <strong>「もしAならば矛盾する。よってAではない」</strong> という数学の背理法と同じ論理構造を持ちます。これは立派な <strong>論理的証明</strong> です。</p>
+
+  <h4>手順</h4>
+  <div class="steps">
+    <li><strong>候補を選ぶ</strong> — 候補が2つしかないマスを特定する</li>
+    <li><strong>仮に置く</strong> — そのマスに猫を置いたと仮定する</li>
+    <li><strong>連鎖をたどる</strong> — 行・列・斜めの制約を適用し、新しい✗を次々にマークする</li>
+    <li><strong>矛盾を探す</strong> — 以下のいずれかが発生したら矛盾：
+      <ul>
+        <li>ある領域の全マスが✗になった（領域消滅）</li>
+        <li>ある行や列に猫が2匹入ってしまった</li>
+        <li>ある領域にどうしても猫が2匹以上必要になる</li>
+      </ul>
+    </li>
+    <li><strong>矛盾したら✗</strong> — そのマスには猫を置けないので✗マーク</li>
+    <li><strong>残った方が正解</strong> — もう一方の候補が正しい位置</li>
+  </div>
+
+  <div class="tip">
+    <strong>実践上の注意</strong><br>
+    仮置き矛盾法は強力ですが、<strong>先に基本〜中級のテクニックをすべて試してから</strong>使うべきです。また、候補が3つ以上ある状態で使うと検証が複雑になりすぎるので、<strong>候補が2つまで絞れた場面</strong>でのみ使うことをおすすめします。
+  </div>
+</div>
+
+<!-- --- Advanced 2 --- -->
+<div class="card">
+  <h3>上級2：橋渡し法（Bridge Method）</h3>
+  <p><span class="badge badge-hard">HARD</span> <span class="technique-subtitle">2つの固定猫を結ぶ大盤面攻略</span></p>
+
+  <p>Level 100以降の10×10以上の盤面では、盤面の両端に<strong>最初から配置された固定猫</strong>が現れます。これらの固定猫は互いに遠く離れているため、外側から順に解こうとすると行き詰まります。</p>
+
+  <h4>戦略</h4>
+  <p>固定猫を「橋の両端」と見なし、<strong>まず中央の列を解く</strong>ことで橋を架けるように盤面を攻略します。</p>
+
+  <div class="board-wrap">
+    <div class="board" style="grid-template-columns:repeat(7,50px);grid-template-rows:repeat(5,50px);">
+      <div class="cell empty r-a"><span class="region-label">A</span></div>
+      <div class="cell empty r-a"><span class="region-label">A</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+      <div class="cell empty r-b"><span class="region-label">B</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-c"><span class="region-label">C</span></div>
+      <div class="cell empty r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-d"><span class="region-label">D</span></div>
+      <div class="cell empty r-e"><span class="region-label">E</span></div>
+      <div class="cell x"><span class="region-label">─</span></div>
+      <div class="cell x"><span class="region-label">─</span></div>
+      <div class="cell x"><span class="region-label">─</span></div>
+      <div class="cell empty r-e"><span class="region-label">E</span></div>
+      <div class="cell empty r-f"><span class="region-label">F</span></div>
+      <div class="cell empty r-f"><span class="region-label">F</span></div>
+      <div class="cell x"><span class="region-label">─</span></div>
+      <div class="cell cat r-g" style="background:#3a2a3a;"><span class="region-label">G</span></div>
+      <div class="cell x"><span class="region-label">─</span></div>
+      <div class="cell x"><span class="region-label">─</span></div>
+      <div class="cell empty r-g"><span class="region-label">G</span></div>
+      <div class="cell empty r-g"><span class="region-label">G</span></div>
+      <div class="cell empty r-h"><span class="region-label">H</span></div>
+      <div class="cell x"><span class="region-label">─</span></div>
+      <div class="cell cat r-i" style="background:#3a2a3a;"><span class="region-label">I</span></div>
+      <div class="cell x"><span class="region-label">─</span></div>
+      <div class="cell x"><span class="region-label">─</span></div>
+      <div class="cell x"><span class="region-label">─</span></div>
+      <div class="cell empty r-i"><span class="region-label">I</span></div>
+      <div class="cell empty r-i"><span class="region-label">I</span></div>
+      <div class="cell empty r-j"><span class="region-label">J</span></div>
+      <div class="cell empty r-j"><span class="region-label">J</span></div>
+      <div class="cell empty r-h"><span class="region-label">H</span></div>
+      <div class="cell empty r-h"><span class="region-label">H</span></div>
+      <div class="cell empty r-j"><span class="region-label">J</span></div>
+      <div class="cell empty r-j"><span class="region-label">J</span></div>
+    </div>
+  </div>
+
+  <div class="tip" style="margin-top:16px;">
+    <strong>なぜ中央を先に解くのか</strong><br>
+    外側の領域は通常、多くの行・列にまたがって大きく、候補が多くて絞りきれません。一方、中央の領域は固定猫の行・列制約と斜め制約で <strong>急激に候補が減る</strong>ため、シングルが発生しやすくなります。中央を固めてから外側に広がることで、効率的に盤面全体を埋められます。
+  </div>
+</div>
+
+<!-- --- Advanced 3 --- -->
+<div class="card">
+  <h3>上級3：デコイ領域の見破り</h3>
+  <p><span class="badge badge-hard">HARD</span> <span class="technique-subtitle">「一番大きな領域が正解とは限らない」</span></p>
+
+  <p>盤面の中で最もカラフルで大きな領域は、しばしば<strong>デコイ（おとり）</strong>です。初学者は「大きい領域から片付けよう」と考えがちですが、実際は<strong>小さい領域に集中した方が早い</strong>ケースが多いです。</p>
+
+  <h4>なぜデコイが存在するのか</h4>
+  <p>パズル設計者は難易度を上げるために、<strong>見た目の印象と実際の解法順序にギャップ</strong>を作ります。大きな領域は多くの行・列に分散しているため、一見どこにでも猫を置けそうに見えますが、逆に言えば <strong>確定の手がかりが少ない</strong> のです。</p>
+
+  <h4>攻略の優先順位</h4>
+  <table class="info-table">
+    <tr><th>優先度</th><th>対象</th><th>理由</th></tr>
+    <tr><td>🥇 最優先</td><td>1マスしかない領域</td><td>即確定。迷う余地なし</td></tr>
+    <tr><td>🥈 次点</td><td>2〜3マスの小さな領域</td><td>候補が少なく、制約で即絞られる</td></tr>
+    <tr><td>🥉 基本</td><td>固定猫の行・列・斜め</td><td>大量の✗を生む連鎖の起点</td></tr>
+    <tr><td>⚠ 後回し</td><td>大きく広がった領域</td><td>デコイの可能性大。他が埋まってから</td></tr>
+  </table>
+</div>
+
+</section>
+
+<!-- ============================================================ -->
+<section id="hard">
+<h2 class="section-title">🔥 Hard / Ultra レベル攻略</h2>
+<p class="section-sub">実戦で使える具体的なアプローチ</p>
+
+<div class="card">
+  <h3>Hardレベル思考フローチャート</h3>
+  <p>行き詰まった時に、この順番でチェックします：</p>
+
+  <div class="steps">
+    <li><strong>✗マークは十分か？</strong> — 各猫の行・列・斜め8マスすべてに✗が入っているか再確認。特に斜めは忘れがち</li>
+    <li><strong>最小領域を探す</strong> — 盤面中の最も小さい領域（2〜3マス）の候補をチェック。領域シングルはないか？</li>
+    <li><strong>行・列のSingleを探す</strong> — 各行・各列で「この行で空いてるの1マスだけ」はないか？</li>
+    <li><strong>領域消滅チェック</strong> — 候補が残っている各マスについて「ここに置いたら別の領域が消えないか？」を検証</li>
+    <li><strong>仮置き矛盾法</strong> — 候補が2つに絞れたマスで「もしこっちだったら矛盾しないか？」を検証</li>
+    <li><strong>盤面全体を眺める</strong> — 特定の行や列に集中するのではなく、盤面全体のバランスを見る。解けない部分に固執せず、解ける部分から攻める</li>
+  </div>
+
+  <div class="warn">
+    <strong>⚠ 最も危険な習慣：</strong><br>
+    「なんとなくここに猫を置いてみよう」という<strong>根拠のない推測</strong>。1回の推測がハートを削るだけでなく、後続の論理を崩壊させます。「なぜここなのか」を説明できない限り、その手は打ってはいけません。
+  </div>
+</div>
+
+<div class="card">
+  <h3>難易度別 戦略早見表</h3>
+  <table class="info-table">
+    <tr><th>難易度</th><th>盤面サイズ</th><th>出現レベル</th><th>中心となる戦略</th></tr>
+    <tr>
+      <td><span class="badge badge-easy">EASY</span></td>
+      <td>4×4 〜 6×6</td>
+      <td>Lv 1〜10</td>
+      <td>領域シングル + 行/列シングルだけで解ける。連鎖を意識する練習に最適</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-medium">MEDIUM</span></td>
+      <td>7×7 〜 9×9</td>
+      <td>Lv 10〜50</td>
+      <td>領域消滅チェックが重要に。斜め制約の波及効果を意識する</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-hard">HARD</span></td>
+      <td>9×9 〜 11×11</td>
+      <td>Lv 30〜200</td>
+      <td>仮置き矛盾法・橋渡し法・デコイ見破りを組み合わせる。全200レベルのうち165がHard</td>
+    </tr>
+  </table>
+</div>
+
+<div class="card">
+  <h3>よくある行き詰まりパターンと脱出法</h3>
+
+  <div class="two-col">
+    <div style="background:var(--surface2);border-radius:8px;padding:20px;">
+      <p style="font-weight:700;color:var(--accent2);margin-bottom:8px;">😿 状況：候補が2つあって選べない</p>
+      <p style="font-size:0.9em;color:var(--text2);">
+        <strong>→ 仮置き矛盾法を使う</strong><br>
+        片方を選んだ場合の結果をシミュレーション。矛盾したらもう片方が正解。両方とも矛盾しなければ、別の場所に手がかりを探す。
+      </p>
+    </div>
+    <div style="background:var(--surface2);border-radius:8px;padding:20px;">
+      <p style="font-weight:700;color:var(--accent2);margin-bottom:8px;">😿 状況：盤面の半分が真っ白で手がつけられない</p>
+      <p style="font-size:0.9em;color:var(--text2);">
+        <strong>→ 最も小さい領域から攻める</strong><br>
+        大きな領域に気を取られず、2〜3マスの領域に注目。行・列・斜めの制約で即座に候補が絞られる。
+      </p>
+    </div>
+    <div style="background:var(--surface2);border-radius:8px;padding:20px;">
+      <p style="font-weight:700;color:var(--accent2);margin-bottom:8px;">😿 状況：✗だらけで猫の置き場所がどこにもないように見える</p>
+      <p style="font-size:0.9em;color:var(--text2);">
+        <strong>→ 領域ごとに候補を数え直す</strong><br>
+        行き過ぎた✗マークが実は間違っている可能性も。一度リセットして、各領域の候補を1から数え直す。
+      </p>
+    </div>
+    <div style="background:var(--surface2);border-radius:8px;padding:20px;">
+      <p style="font-weight:700;color:var(--accent2);margin-bottom:8px;">😿 状況：猫を置いたのに連鎖が起きない</p>
+      <p style="font-size:0.9em;color:var(--text2);">
+        <strong>→ 斜め制約を再確認</strong><br>
+        猫の周囲8マス全てに✗を入れたか？「斜めは大丈夫」という思い込みが原因の大半。
+      </p>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<!-- ============================================================ -->
+<section id="summary">
+<h2 class="section-title">📋 総まとめ — 解法クイックリファレンス</h2>
+<p class="section-sub">全テクニックを一覧で振り返る</p>
+
+<div class="card">
+  <h3>解法の優先順位（覚える順）</h3>
+  <table class="info-table">
+    <tr><th>順位</th><th>テクニック</th><th>難易度</th><th>やること</th><th>「なぜ」の一言</th></tr>
+    <tr>
+      <td>①</td>
+      <td>✗マークの徹底</td>
+      <td><span class="badge badge-easy">EASY</span></td>
+      <td>猫を置く前に置けない場所をマーク</td>
+      <td rowspan="4">ルールが禁じる配置を排除することが、唯一の正解への道</td>
+    </tr>
+    <tr>
+      <td>②</td>
+      <td>領域シングル</td>
+      <td><span class="badge badge-easy">EASY</span></td>
+      <td>領域の候補が1つなら確定</td>
+    </tr>
+    <tr>
+      <td>③</td>
+      <td>行/列シングル</td>
+      <td><span class="badge badge-easy">EASY</span></td>
+      <td>行/列の候補が1つなら確定</td>
+    </tr>
+    <tr>
+      <td>④</td>
+      <td>連鎖のスキャン</td>
+      <td><span class="badge badge-easy">EASY</span></td>
+      <td>置いたら必ず4方向を再チェック</td>
+    </tr>
+    <tr>
+      <td>⑤</td>
+      <td>領域消滅チェック</td>
+      <td><span class="badge badge-medium">MEDIUM</span></td>
+      <td>「もし置いたら別領域が消えるか」を検証</td>
+      <td>ルール①違反を事前に防ぐ</td>
+    </tr>
+    <tr>
+      <td>⑥</td>
+      <td>隠れシングル</td>
+      <td><span class="badge badge-medium">MEDIUM</span></td>
+      <td>行/列で絞ると領域の候補が1つに</td>
+      <td>ルール②で行/列の制約が領域を狭める</td>
+    </tr>
+    <tr>
+      <td>⑦</td>
+      <td>仮置き矛盾法</td>
+      <td><span class="badge badge-hard">HARD</span></td>
+      <td>仮に置いて矛盾を証明→✗に</td>
+      <td>背理法 — 数学的同値</td>
+    </tr>
+    <tr>
+      <td>⑧</td>
+      <td>橋渡し法</td>
+      <td><span class="badge badge-hard">HARD</span></td>
+      <td>固定猫の中央から先に解く</td>
+      <td>中央ほど制約が強く働く</td>
+    </tr>
+    <tr>
+      <td>⑨</td>
+      <td>デコイ見破り</td>
+      <td><span class="badge badge-hard">HARD</span></td>
+      <td>大きな領域を後回し</td>
+      <td>大きいほど手がかりが少ない</td>
+    </tr>
+  </table>
+</div>
+
+<div class="card">
+  <h3>最後に — Meowdokuを楽しむ心構え</h3>
+  <div class="tip">
+    <strong>Meowdokuは「推理小説」であり「パズル」です</strong><br><br>
+    <ul>
+      <li>各盤面には <strong>たった1つの正解</strong> しかありません</li>
+      <li>その正解は <strong>論理だけで到達できる</strong> ように設計されています</li>
+      <li>「推測」は敵です。「証明」が味方です</li>
+      <li>行き詰まったら、<strong>一度盤面から目を離す</strong> のも有効です。脳が無意識にパターンを整理してくれます</li>
+      <li>毎日の <strong>Daily Puzzle</strong> を習慣にすると、パターン認識力が格段に向上します</li>
+    </ul>
+  </div>
+  <p style="text-align:center;font-size:1.5em;margin-top:20px;letter-spacing:8px;">🐱 🐈 🐈‍⬛ 🐱 🐈 🐈‍⬛</p>
+</div>
+
+</section>
+
+</div>
+
+<footer>
+  <p>Meowdoku 解法完全ガイド — Unofficial fan guide</p>
+  <p>Meowdoku is a product of Oakever Games PTE. LTD. This site is not affiliated with Oakever Games.</p>
+  <p style="margin-top:8px;font-size:0.8em;">Built with 🐱 for fellow puzzle enthusiasts</p>
+</footer>
+
+</body>
+</html>
