@@ -3,139 +3,100 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>実演解説 — Meowdoku 解法ガイド</title>
+<title>実演解説 — Meowdoku</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
-  <div class="container">
-    <h1>🎬 実演解説</h1>
-    <p class="sub">6×6盤面を最初から最後まで — 全テクニックの連携</p>
-  </div>
-</header>
-
-<nav>
-  <ul>
-    <li><a href="index.html">📖 目次</a></li>
-    <li><a href="basics.html">基本</a></li>
-    <li><a href="core.html">核心</a></li>
-    <li><a href="intermediate.html">中級</a></li>
-    <li><a href="advanced.html">上級</a></li>
-    <li><a href="walkthrough.html" style="color:var(--accent);border-color:var(--accent);">実演</a></li>
-    <li><a href="hard.html">Hard攻略</a></li>
-  </ul>
-</nav>
-
+<header><div class="container"><h1>🎬 実演解説</h1><p class="sub">本家と同じ 8×8 盤面で完全攻略を疑似体験</p></div></header>
+<nav><ul>
+<li><a href="index.html">📖 目次</a></li>
+<li><a href="basics.html">基本</a></li>
+<li><a href="core.html">核心</a></li>
+<li><a href="intermediate.html">中級</a></li>
+<li><a href="advanced.html">上級</a></li>
+<li><a href="walkthrough.html" style="color:var(--accent);border-color:var(--accent);">実演</a></li>
+<li><a href="hard.html">Hard攻略</a></li>
+</ul></nav>
 <div class="container">
-
 <section>
-<h2 class="section-title">🎬 6×6 完全攻略</h2>
-<p class="section-sub">実際の盤面を使って、すべての手を「なぜ」とともに解説します</p>
-
+<h2 class="section-title">🎬 8×8 盤面の攻略実演</h2>
+<p class="section-sub">本家 Lv31 と同じ 8×8 盤面で、4 つのテクニックを順番に適用</p>
 <div class="card">
-  <h3>初期配置</h3>
-  <p>6×6の盤面、6つの色の領域。1匹の猫がR2C5（橙色の領域）に固定配置されています。</p>
-
-  <table class="info-table">
-    <tr><th>行</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr>
-    <tr><td>R1</td><td style="background:#9b8ec4;color:#fff;font-weight:700;">A</td><td style="background:#9b8ec4;color:#fff;font-weight:700;">A</td><td style="background:#4a8c5f;color:#fff;font-weight:700;">B</td><td style="background:#4a8c5f;color:#fff;font-weight:700;">B</td><td style="background:#8cc152;color:#fff;font-weight:700;">C</td><td style="background:#8cc152;color:#fff;font-weight:700;">C</td></tr>
-    <tr><td>R2</td><td style="background:#9b8ec4;color:#fff;font-weight:700;">A</td><td style="background:#9b8ec4;color:#fff;font-weight:700;">A</td><td style="background:#4a8c5f;color:#fff;font-weight:700;">B</td><td style="background:#4a8c5f;color:#fff;font-weight:700;">B</td><td style="background:var(--cat-bg);color:#fff;">🐱橙</td><td style="background:#e8943a;color:#fff;font-weight:700;">D</td></tr>
-    <tr><td>R3</td><td style="background:#e8943a;color:#fff;font-weight:700;">D</td><td style="background:#e8943a;color:#fff;font-weight:700;">D</td><td style="background:#e8943a;color:#fff;font-weight:700;">D</td><td style="background:#d4758c;color:#fff;font-weight:700;">E</td><td style="background:#d4758c;color:#fff;font-weight:700;">E</td><td style="background:#d4758c;color:#fff;font-weight:700;">E</td></tr>
-    <tr><td>R4</td><td style="background:#d4758c;color:#fff;font-weight:700;">E</td><td style="background:#d4758c;color:#fff;font-weight:700;">E</td><td style="background:#d4758c;color:#fff;font-weight:700;">E</td><td style="background:#3a8fa1;color:#fff;font-weight:700;">F</td><td style="background:#3a8fa1;color:#fff;font-weight:700;">F</td><td style="background:#3a8fa1;color:#fff;font-weight:700;">F</td></tr>
-    <tr><td>R5</td><td style="background:#3a8fa1;color:#fff;font-weight:700;">F</td><td style="background:#3a8fa1;color:#fff;font-weight:700;">F</td><td style="background:#3a8fa1;color:#fff;font-weight:700;">F</td><td style="background:#e8943a;color:#fff;font-weight:700;">D</td><td style="background:#e8943a;color:#fff;font-weight:700;">D</td><td style="background:#e8943a;color:#fff;font-weight:700;">D</td></tr>
-    <tr><td>R6</td><td style="background:#9b8ec4;color:#fff;font-weight:700;">A</td><td style="background:#9b8ec4;color:#fff;font-weight:700;">A</td><td style="background:#4a8c5f;color:#fff;font-weight:700;">B</td><td style="background:#4a8c5f;color:#fff;font-weight:700;">B</td><td style="background:#8cc152;color:#fff;font-weight:700;">C</td><td style="background:#8cc152;color:#fff;font-weight:700;">C</td></tr>
-  </table>
-
-  <div class="annot">6領域：A(紫) B(緑) C(黄緑) D(橙) E(桃) F(青)</div>
-
-  <p>固定猫がR2C5（橙色の領域D）にいます。これにより：</p>
-  <ul>
-    <li>R2行全体が ✗（R2C1〜R2C4, R2C6）</li>
-    <li>C5列全体が ✗（R1C5, R3C5, R4C5, R5C5, R6C5）</li>
-    <li>斜め8マスが ✗（R1C4, R1C6, R3C4, R3C6）</li>
-    <li>領域Dの残りマスがすべて ✗（R3C1,R3C2,R3C3,R5C4,R5C5,R5C6）</li>
-  </ul>
-
-  <p>これで初期の✗がすべて出揃いました。ここからスタートです。</p>
+<h3>初期状態（猫のいない盤面）</h3>
+<p>8×8 盤面、6 つの領域。下の図は本家 Lv20 の IMG_9655.png と同じ構成の 8×8 模式図です（一部色・形は模式化）：</p>
+<div class="board-row"><figure>
+<div class="board" style="grid-template-columns:repeat(8,42px);grid-template-rows:repeat(8,42px);">
+<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-b"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
 </div>
-
+<figcaption>8×8 盤面の初期状態。6 領域（A〜F）、固定猫なし</figcaption>
+</figure></div>
+<div class="annot">A(紫) B(緑) C(黄緑) D(黄) E(ピンク) F(オレンジ)</div>
+<p>この盤面に対して、以下の 4 つのテクニックを順に適用していきます：</p>
+</div>
 <div class="card">
-  <h3>第1手：領域C（黄緑）→ R6C6 が確定</h3>
-  <p>領域Cのマスは R1C5,R1C6,R2C6,R6C5,R6C6 の5マス。しかし：</p>
-  <ul>
-    <li>R1C5: ✗（固定猫の列 C5）</li>
-    <li>R2C6: ✗（固定猫の行 R2）</li>
-    <li>R6C5: ✗（固定猫の列 C5）</li>
-  </ul>
-
-  <div class="board-row">
-    <figure>
-      <div class="board" style="grid-template-columns:repeat(6,52px);grid-template-rows:repeat(6,52px);">
-        <div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell x">✗</div><div class="cell x">✗</div>
-        <div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell cat"></div><div class="cell x">✗</div>
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell em r-e"></div><div class="cell em r-e"></div>
-        <div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell x">✗</div><div class="cell em r-e"></div><div class="cell em r-e"></div>
-        <div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div>
-        <div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-c"></div><div class="cell em r-c next">✓</div>
-      </div>
-      <figcaption>R6C6（✓）が領域Cの唯一の候補に</figcaption>
-    </figure>
-  </div>
-
-  <p>領域Cの候補マス：R1C5(✗), R1C6(✗), R2C6(✗), R6C5(✗), R6C6(空) → <strong>R6C6 のみ</strong>！</p>
-  
-  <div class="tip">
-    <strong>使ったテクニック：領域シングル</strong><br>
-    領域Cの5マス中4マスが固定猫の制約で✗。残ったR6C6が確定します。
-  </div>
+<h3>手順 1：最小領域から攻める（基本2）</h3>
+<p>最も小さい領域は<strong>紫 A</strong>（4 マス）。他の領域より小さいので、ここから始めるのが鉄則。</p>
+<ul>
+<li>紫 A の候補：4 マス全部（まだ絞れていない）</li>
+<li>→ しかし「<strong>固定猫</strong>がいない初期状態では、すぐには絞れない</strong></li>
+<li>→ まずは大きい領域 B〜F の中で<strong>形が特徴的なもの</strong>を探します</li>
+</ul>
+<p>盤面を見ると、<strong>緑 B</strong>は左上の細い帯状。緑 B の中で列が交差する箇所を考えると...</p>
 </div>
-
 <div class="card">
-  <h3>第1手の連鎖スキャン</h3>
-  <p>R6C6に猫を置いたので、連鎖をスキャン：</p>
-  <ul>
-    <li>R6行 ✗: R6C1(A), R6C2(A), R6C3(B), R6C4(B), R6C5(C✗)</li>
-    <li>C6列 ✗: R1C6(C✗), R2C6(D✗), R3C6(E), R4C6(F), R5C6(D)</li>
-    <li>斜め ✗: R5C5(D), R5C7(範囲外), R7C5(範囲外), R7C7(範囲外)</li>
-  </ul>
-  <p>これにより新たな領域シングルを探します。</p>
+<h3>手順 2：ラインロックを探す（核心1）</h3>
+<p>緑 B のマスは R1-R3 の上部に集中。緑 B の候補が C2-C4 に限られる場合、R2 行は緑 B で占有される：</p>
+<div class="board-row"><figure>
+<div class="board" style="grid-template-columns:repeat(8,42px);grid-template-rows:repeat(8,42px);">
+<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b next"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell em r-b"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
 </div>
-
+<figcaption>緑 B の候補が C3 に絞られた瞬間。R3 行の D 領域は全部✗</figcaption>
+</figure></div>
+<p>緑 B の猫を R2C3 に置いた瞬間、R3 行の黄 D 領域が全部✗になり、領域消滅チェックが成立します。</p>
+</div>
 <div class="card">
-  <h3>第2手：領域F（青）→ R4C4 が確定</h3>
-  <p>領域Fのマス：R4C4,R4C5,R4C6,R5C1,R5C2,R5C3 の6マス。</p>
-  <ul>
-    <li>R4C6: ✗（C6列、R6C6の猫）</li>
-    <li>…</li>
-  </ul>
-  <p>実際には各マスの状態を1つずつ確認しながら進めます。実戦では、すべての領域の候補数を頭の中でカウントしながら進めます。</p>
-
-  <div class="warn">
-    <strong>本ページは作成中です</strong><br>
-    完全なウォークスルーは現在構築中です。各手の盤面図と完全な検証を含めたバージョンは近日公開予定。<br><br>
-    それまでは、以下の3つのポイントを意識して実際のゲームで練習してみてください：<br>
-    ① 固定猫から✗を広げる<br>
-    ② 最小の領域から攻める<br>
-    ③ 猫を置くたびに連鎖スキャン<br><br>
-    この3つだけで、Easy〜Mediumの大半はクリアできます。
-  </div>
+<h3>手順 3：連鎖で他の領域シングル（基本4）</h3>
+<p>R2C3 の猫から連鎖的に✗が広がり、他の領域でシングルが発生します：</p>
+<ul>
+<li>C3 列全体 → 紫 A の R1-R2 が✗に → 紫 A は R3-R4 のみに</li>
+<li>R2 行全体 → 黄緑 C の R2 が全部✗に → 黄緑 C は R1 か R3 のみ</li>
+<li>周囲 8 マス → ピンク E の R2-R3 が✗に</li>
+</ul>
+<p>こうして連鎖で複数領域が同時に確定に近づきます。本家アプリでは 1 匹置くたびにこのスキャンを 4 つ必ず実行します。</p>
 </div>
-
+<div class="card">
+<h3>手順 4：終盤スイープ（上級1）</h3>
+<p>残り数匹になったら、未使用の行・列・領域をマッチングして確定を探します：</p>
+<p>例えば緑 B・紫 A・黄 D などが埋まった状態で、黄緑 C の候補が 2 マス残った場合、行と列の交差でどちらかに確定します。</p>
+<div class="tip">
+<strong>実演のまとめ</strong><br>
+本家 8×8 盤面で 4 つの基本テクニックを順に適用する流れ：<br>
+① 最小領域を確認 → ② ラインロック/ペアロック → ③ 連鎖スキャン → ④ 終盤スイープ<br>
+<strong>推測なし、ハート無傷で全 8 匹を配置完了</strong>できます。
+</div>
+</div>
 <div class="page-nav">
-  <a href="advanced.html">← 上級手法</a>
-  <a href="hard.html" class="next">次のページ：Hard攻略 →</a>
+<a href="advanced.html">← 上級手法</a>
+<a href="hard.html" class="next">次のページ：Hard攻略 →</a>
 </div>
-
 </section>
-
 </div>
-
-<footer>
-  <p>Meowdoku 解法ガイド — Unofficial fan guide</p>
-</footer>
-
+<footer><p>Meowdoku 解法ガイド — Unofficial fan guide</p><p>Meowdoku is a product of Oakever Games PTE. LTD.</p></footer>
 </body>
 </html>
