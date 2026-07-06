@@ -12,7 +12,7 @@
 
 <header>
   <div class="container">
-    <h1>🐱 基本手法</h1>
+    <h1>基本手法</h1>
     <p class="sub">すべての攻略の基礎 — 最初に覚える4つのテクニック</p>
   </div>
 </header>
@@ -50,14 +50,34 @@
 
   <div class="board-row">
     <figure>
-      <div class="board" style="grid-template-columns:repeat(5,48px);grid-template-rows:repeat(5,48px);">
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div>
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div>
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell cat"></div><div class="cell x">✗</div><div class="cell x">✗</div>
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div>
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div>
+      <div class="board" style="grid-template-columns:repeat(5,52px);grid-template-rows:repeat(5,52px);">
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell cat"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
+        <div class="cell x em"></div>
       </div>
-      <figcaption>🐱 1匹が行（R3）・列（C3）・周囲8マスを✗に</figcaption>
+      <figcaption>中央の猫が行（R3）・列（C3）・周囲8マスを×に</figcaption>
     </figure>
   </div>
 
@@ -80,13 +100,13 @@
 
   <div class="board-row">
     <figure>
-      <div class="board" style="grid-template-columns:repeat(2,48px);grid-template-rows:repeat(2,48px);">
-        <div class="cell x r-a" style="position:relative;">✗<span class="rl">A</span><span style="position:absolute;bottom:1px;right:2px;font-size:0.45em;background:#fde9d9;padding:0 3px;border-radius:2px;">行</span></div>
-        <div class="cell x r-a" style="position:relative;">✗<span class="rl">A</span><span style="position:absolute;bottom:1px;right:2px;font-size:0.45em;background:#d9edf7;padding:0 3px;border-radius:2px;">列</span></div>
-        <div class="cell x r-a" style="position:relative;">✗<span class="rl">A</span><span style="position:absolute;bottom:1px;right:2px;font-size:0.45em;background:#f9e6e6;padding:0 3px;border-radius:2px;">斜</span></div>
+      <div class="board" style="grid-template-columns:repeat(2,52px);grid-template-rows:repeat(2,52px);">
+        <div class="cell x r-a"><span class="rl">A</span><span class="reason reason-row">行</span></div>
+        <div class="cell x r-a"><span class="rl">A</span><span class="reason reason-col">列</span></div>
+        <div class="cell x r-a"><span class="rl">A</span><span class="reason reason-diag">斜</span></div>
         <div class="cell em next r-a"><span class="rl">A</span></div>
       </div>
-      <figcaption>領域A：3マスが✗（行・列・斜め制約）、残り1マス（✓）が確定</figcaption>
+      <figcaption>領域A：3マスが×（行・列・斜め制約）、残り1マスが確定</figcaption>
     </figure>
   </div>
 
@@ -114,15 +134,15 @@
 
   <div class="board-row">
     <figure>
-      <div class="board" style="grid-template-columns:repeat(6,48px);grid-template-rows:repeat(1,48px);">
-        <div class="cell x" style="position:relative;">✗<span style="position:absolute;bottom:1px;right:2px;font-size:0.45em;background:#fde9d9;padding:0 3px;border-radius:2px;">列</span></div>
-        <div class="cell x" style="position:relative;">✗<span style="position:absolute;bottom:1px;right:2px;font-size:0.45em;background:#f9e6e6;padding:0 3px;border-radius:2px;">斜</span></div>
-        <div class="cell x" style="position:relative;">✗<span style="position:absolute;bottom:1px;right:2px;font-size:0.45em;background:#d9edf7;padding:0 3px;border-radius:2px;">列</span></div>
-        <div class="cell x" style="position:relative;">✗<span style="position:absolute;bottom:1px;right:2px;font-size:0.45em;background:#fde9d9;padding:0 3px;border-radius:2px;">行</span></div>
+      <div class="board" style="grid-template-columns:repeat(6,52px);grid-template-rows:repeat(1,52px);">
+        <div class="cell x em"><span class="reason reason-col">列</span></div>
+        <div class="cell x em"><span class="reason reason-diag">斜</span></div>
+        <div class="cell x em"><span class="reason reason-col">列</span></div>
+        <div class="cell x em"><span class="reason reason-row">行</span></div>
         <div class="cell em next"></div>
-        <div class="cell x" style="position:relative;">✗<span style="position:absolute;bottom:1px;right:2px;font-size:0.45em;background:#d9edf7;padding:0 3px;border-radius:2px;">列</span></div>
+        <div class="cell x em"><span class="reason reason-col">列</span></div>
       </div>
-      <figcaption>R3行：5マスが✗（列・斜め制約の積み重ね）、R3C5（✓）が確定</figcaption>
+      <figcaption>R3行：5マスが×（列・斜め制約の積み重ね）、R3C5が確定</figcaption>
     </figure>
   </div>
 
@@ -174,6 +194,7 @@
 
 <footer>
   <p>Meowdoku 解法ガイド — Unofficial fan guide</p>
+  <p>Meowdoku is a product of Oakever Games PTE. LTD.</p>
 </footer>
 
 </body>
