@@ -12,7 +12,7 @@
 
 <header>
   <div class="container">
-    <h1>🐱 Meowdoku 解法ガイド</h1>
+    <h1>Meowdoku 解法ガイド</h1>
     <p class="sub">猫の縄張りパズルを、論理で解き明かす</p>
   </div>
 </header>
@@ -52,16 +52,16 @@
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
     <div class="tip" style="margin:0;font-size:0.9em;">
       <strong>👆 1タップ</strong><br>
-      空マスを1回タップ → <strong>✗</strong>（猫を置けないマスの印）
+      空マスを1回タップ → <strong>×</strong>（猫を置けないマスの印）
     </div>
     <div class="tip" style="margin:0;font-size:0.9em;">
       <strong>👆👆 ダブルタップ</strong><br>
-      空マスを2回タップ → <strong>🐱 猫を配置</strong>（確定操作）
+      空マスを2回タップ → <strong>猫を配置</strong>（確定操作）
     </div>
   </div>
   <div style="margin-top:10px;background:var(--surface2);border-radius:8px;padding:12px 16px;font-size:0.88em;color:var(--text2);">
     <strong>❤️ ハート（ライフ）:</strong> 初期3つ。ルール違反の猫を置くと1つ失う。3つすべて失うとゲームオーバー。<br>
-    <strong>✗はメモではなく確定情報:</strong> 本家アプリでは✗はプレイヤーのメモですが、論理的にはルールに基づく証明です。
+    <strong>×はメモではなく確定情報:</strong> 本家アプリでは×はプレイヤーのメモですが、論理的にはルールに基づく証明です。
   </div>
 </div>
 
@@ -74,11 +74,11 @@
 <div class="card">
   <h3>盤面の見方（凡例）</h3>
   <div class="legend">
-    <div class="legend-item"><div class="sw" style="background:var(--cat-bg);color:#fff;">🐱</div> 確定した猫</div>
-    <div class="legend-item"><div class="sw" style="background:#fce8e6;color:#c0392b;">✗</div> 猫を置けないマス</div>
-    <div class="legend-item"><div class="sw" style="background:#e8f5e9;border:2px solid #27ae60;">✓</div> 次に置く場所</div>
-    <div class="legend-item"><div class="sw" style="background:#faf8f6;border:1px solid #ccc;"></div> 空きマス</div>
-    <div class="legend-item"><div class="sw" style="background:#ede0f5;">A</div> 領域ラベル</div>
+    <div class="legend-item"><div class="sw cell cat"></div> 確定した猫</div>
+    <div class="legend-item"><div class="sw cell x em"></div> 猫を置けないマス（×）</div>
+    <div class="legend-item"><div class="sw cell em next"></div> 次に置く場所</div>
+    <div class="legend-item"><div class="sw cell em"></div> 空きマス</div>
+    <div class="legend-item"><div class="sw cell em r-a" style="position:relative;color:#fff;font-weight:700;font-size:0.75em;">A</div> 領域ラベル</div>
   </div>
   <p style="font-size:0.85em;color:var(--text2);margin-top:8px;">R3C5 = 3行目・5列目</p>
 </div>
@@ -87,7 +87,7 @@
   <a href="basics.html" style="display:block;padding:24px;background:var(--surface);border:2px solid var(--accent);border-radius:10px;text-decoration:none;text-align:center;">
     <div style="font-size:2em;">⭐</div>
     <div style="font-weight:700;color:var(--accent);margin-top:6px;">基本手法</div>
-    <div style="font-size:0.85em;color:var(--text2);margin-top:4px;">✗マーク・領域シングル・行/列シングル・連鎖</div>
+    <div style="font-size:0.85em;color:var(--text2);margin-top:4px;">×マーク・領域シングル・行/列シングル・連鎖</div>
   </a>
   <a href="core.html" style="display:block;padding:24px;background:var(--surface);border:2px solid var(--border);border-radius:10px;text-decoration:none;text-align:center;">
     <div style="font-size:2em;">⭐⭐</div>
