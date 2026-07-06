@@ -3,147 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>核心手法 — Meowdoku 解法ガイド</title>
+<title>核心手法 — Meowdoku</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
-  <div class="container">
-    <h1>🐱 核心手法</h1>
-    <p class="sub">シングルの次に覚える、実戦で最も使うテクニック</p>
-  </div>
-</header>
-
-<nav>
-  <ul>
-    <li><a href="index.html">📖 目次</a></li>
-    <li><a href="basics.html">基本</a></li>
-    <li><a href="core.html" style="color:var(--accent);border-color:var(--accent);">核心</a></li>
-    <li><a href="intermediate.html">中級</a></li>
-    <li><a href="advanced.html">上級</a></li>
-    <li><a href="walkthrough.html">実演</a></li>
-    <li><a href="hard.html">Hard攻略</a></li>
-  </ul>
-</nav>
-
+<header><div class="container"><h1>🐱 核心手法</h1><p class="sub">シングルの次に覚える、実戦で最も使うテクニック</p></div></header>
+<nav><ul>
+<li><a href="index.html">📖 目次</a></li>
+<li><a href="basics.html">基本</a></li>
+<li><a href="core.html" style="color:var(--accent);border-color:var(--accent);">核心</a></li>
+<li><a href="intermediate.html">中級</a></li>
+<li><a href="advanced.html">上級</a></li>
+<li><a href="walkthrough.html">実演</a></li>
+<li><a href="hard.html">Hard攻略</a></li>
+</ul></nav>
 <div class="container">
-
 <section>
 <h2 class="section-title">⭐⭐ 核心1：ラインロック</h2>
-<p class="section-sub">「領域の候補が1つの行・列に集中している」</p>
-
+<p class="section-sub">「領域の候補が 1 つの行・列に集中している」</p>
 <div class="card">
-  <p>ある領域の空マスが <strong>すべて同じ行（または同じ列）</strong> にしかない場合、その領域の猫はその行のどこかに置かれます。つまり <strong>その行はこの領域で占有される</strong> ことになり、同じ行の他の領域のマスはすべて✗になります。</p>
-
-  <h4>図解</h4>
-  <p>領域A（4マス）の空マスがすべてR3行に集中しているケース：</p>
-
-  <div class="board-row">
-    <figure>
-      <div class="board" style="grid-template-columns:repeat(6,52px);grid-template-rows:repeat(1,52px);">
-        <div class="cell x">✗</div>
-        <div class="cell x">✗</div>
-        <div class="cell x">✗</div>
-        <div class="cell em r-a"><span class="rl">A</span></div>
-        <div class="cell x">✗</div>
-        <div class="cell em r-a"><span class="rl">A</span></div>
-      </div>
-      <figcaption>R3行のうち空マスは領域Aの2マスだけ。つまりR3行は領域Aで占有される。</figcaption>
-    </figure>
-  </div>
-
-  <p><strong>このとき何が起きるか：</strong></p>
-  <ul>
-    <li>領域Aの猫は <strong>必ずR3行</strong> のどちらかに置かれる（R3C4 か R3C6）</li>
-    <li>→ つまり <strong>R3行の他の領域のマス（R3C1,R3C2,R3C3,R3C5）には絶対に猫を置けない</strong></li>
-    <li>→ それらのマスは間接的に ✗ 確定！</li>
-  </ul>
-
-  <div class="tip">
-    <strong>なぜラインロックが強力なのか</strong><br>
-    領域シングルは「ここに確定！」と直接示しますが、ラインロックは <strong>「あっちには絶対に置けない」</strong> と間接的に示します。この「消去」の積み重ねがHardレベルでは領域シングルより頻繁に突破口になります。
-  </div>
-
-  <h4>使いどころ</h4>
-  <p>盤面全体でシングルが見つからなくなったら、真っ先にラインロックを探します。<strong>細長い領域</strong> や <strong>盤面の端にある領域</strong> で発生しやすいです。</p>
+<p>ある領域の空マスが <strong>すべて同じ行（または列）</strong> にしかない場合、その領域の猫はその行に置かれる。つまり <strong>その行はこの領域で占有</strong> され、同じ行の他の領域のマスはすべて✗になる。</p>
+<h4>図解（8×8 盤面）</h4>
+<p>下の 8×8 盤面で、紫の領域（A）の空マスが R3 行の 2 マスだけに候補が絞られているケース。R3 行は紫領域で占有確定：</p>
+<div class="board-row"><figure>
+<div class="board" style="grid-template-columns:repeat(8,40px);grid-template-rows:repeat(8,40px);">
+<div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div>
+<div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div><div class="cell x r-d"></div>
+<div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell em r-a"></div><div class="cell x r-a"></div><div class="cell x r-a"></div><div class="cell em r-a"></div><div class="cell x r-a"></div>
+<div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div>
+<div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+</div>
+<figcaption>紫領域（A）の空マスは R3 行の C4 と C7 だけ → R3 行は紫で占有</figcaption>
+</figure></div>
+<ul>
+<li>紫領域の猫は必ず R3 行の C4 か C7</li>
+<li>→ R3 行の他マスは全部✗確定（黄緑 B・黄 D も R3 行を持てない）</li>
+</ul>
+<div class="tip"><strong>なぜ強力か</strong><br>領域シングルは「ここに確定」と直接示すが、ラインロックは <strong>「あっちには置けない」</strong> と間接的に示す。Hard レベルで頻繁に突破口になる。</div>
 </div>
 </section>
-
 <section>
 <h2 class="section-title">⭐⭐ 核心2：ペアロック</h2>
-<p class="section-sub">「2つの領域が同じ2つの行を争っている」</p>
-
+<p class="section-sub">「2 つの領域が同じ 2 つの行を争っている」</p>
 <div class="card">
-  <p>ラインロックが1領域×1行の関係だったのに対し、ペアロックは <strong>2領域×2行</strong> の関係です。</p>
-
-  <p>2つの異なる領域が、それぞれ自分の猫を <strong>同じ2つの行にしか置けない</strong> 場合、それら2行はこの2領域で「完全占有」されます。つまり：</p>
-  <ul>
-    <li>領域Xの猫は行Aか行Bのどちらか</li>
-    <li>領域Yの猫も行Aか行Bのどちらか</li>
-    <li>→ 行Aと行Bは領域XとYで <strong>使い切られる</strong></li>
-    <li>→ <strong>他の全領域は行Aと行Bを一切使えない</strong>（✗）</li>
-  </ul>
-
-  <h4>図解</h4>
-  <p>領域Aの候補がR1のみ、領域Bの候補がR2のみに限定されている場合：</p>
-
-  <div class="board-row">
-    <figure>
-      <div class="board" style="grid-template-columns:repeat(4,52px);grid-template-rows:repeat(2,52px);">
-        <div class="cell em r-a"><span class="rl">A</span></div>
-        <div class="cell em r-a"><span class="rl">A</span></div>
-        <div class="cell x">✗</div>
-        <div class="cell x">✗</div>
-        <div class="cell x">✗</div>
-        <div class="cell x">✗</div>
-        <div class="cell em r-b"><span class="rl">B</span></div>
-        <div class="cell em r-b"><span class="rl">B</span></div>
-      </div>
-      <figcaption>領域AはR1のみ、領域BはR2のみに候補が集中。R1・R2はAとBで占有される。</figcaption>
-    </figure>
-  </div>
-
-  <div class="warn">
-    <strong>見落とし注意</strong><br>
-    パッと見では気づきにくいため、行き詰まったときに意識的に「候補が同じ行/列に集中している領域ペアはないか？」をチェックしましょう。8×8以上の盤面で頻出します。
-  </div>
+<p>2 つの異なる領域が、それぞれ自分の猫を <strong>同じ 2 つの行にしか置けない</strong> 場合、それら 2 行はこの 2 領域で完全占有。</p>
+<h4>図解（8×8 盤面）</h4>
+<p>紫領域（A）の候補が R1、黄緑領域（C）の候補が R3 に限定。R1・R3 は 2 領域で使い切られる：</p>
+<div class="board-row"><figure>
+<div class="board" style="grid-template-columns:repeat(8,40px);grid-template-rows:repeat(8,40px);">
+<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div>
+<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div>
+<div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div><div class="cell x r-b"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div>
+<div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+</div>
+<figcaption>紫 A は R1-R2、黄緑 C は R3-R4 のみに候補 → R1-R2 は紫、R3-R4 は黄緑で占有</figcaption>
+</figure></div>
+<div class="warn"><strong>見落とし注意</strong><br>パッと見では気づきにくいため、行き詰まったときに「候補が同じ行/列に集中している領域ペアはないか？」をチェック。8×8 以上の盤面で頻出。</div>
 </div>
 </section>
-
 <section>
 <h2 class="section-title">⭐⭐ 核心3：消去思考</h2>
 <p class="section-sub">「どこに置けるか」より「どこに置けないか」</p>
-
 <div class="card">
-  <p>人間の脳は自然と「置ける場所」を探します。しかしMeowdokuの上級者は <strong>「置けない場所を✗で埋める」</strong> ことを最優先します。これが消去思考（ネガティブスペース思考）です。</p>
-
-  <div class="tip">
-    <strong>質問を変換する練習</strong><br>
-    <table class="info-table">
-      <tr><th>❌ 初心者の質問</th><th>✅ 上級者の質問</th></tr>
-      <tr><td>「この猫はどこに置ける？」</td><td>「このマスはなぜ✗にならない？」</td></tr>
-      <tr><td>「この領域に残ってるのはどこ？」</td><td>「この行で✗がまだ足りない列は？」</td></tr>
-      <tr><td>「次の一手はどこ？」</td><td>「✗を付けられるマスはまだどこにある？」</td></tr>
-    </table>
-  </div>
-
-  <p>空マスは「まだ決まっていない」のではなく、「まだ✗が証明されていない」と考えましょう。この意識の切り替えが中級者への第一歩です。</p>
+<p>人間の脳は自然と「置ける場所」を探す。しかし Meowdoku の上級者は <strong>「置けない場所を✗で埋める」</strong> ことを最優先します。これが<strong>消去思考（ネガティブスペース思考）</strong>。</p>
+<div class="tip"><strong>質問を変換する練習</strong><br>
+<table class="info-table">
+<tr><th>❌ 初心者の質問</th><th>✅ 上級者の質問</th></tr>
+<tr><td>「この猫はどこに置ける？」</td><td>「このマスはなぜ✗にならない？」</td></tr>
+<tr><td>「この領域に残ってるのはどこ？」</td><td>「この行で✗がまだ足りない列は？」</td></tr>
+<tr><td>「次の一手はどこ？」</td><td>「✗を付けられるマスはまだどこにある？」</td></tr>
+</table>
+</div>
+<p>空マスは「まだ決まっていない」のではなく、「まだ✗が証明されていない」と考える。この意識の切り替えが中級者への第一歩。</p>
 </div>
 </section>
-
 <div class="page-nav">
-  <a href="basics.html">← 基本手法</a>
-  <a href="intermediate.html" class="next">次のページ：中級手法 →</a>
+<a href="basics.html">← 基本手法</a>
+<a href="intermediate.html" class="next">次のページ：中級手法 →</a>
 </div>
-
 </div>
-
-<footer>
-  <p>Meowdoku 解法ガイド — Unofficial fan guide</p>
-</footer>
-
+<footer><p>Meowdoku 解法ガイド — Unofficial fan guide</p><p>Meowdoku is a product of Oakever Games PTE. LTD.</p></footer>
 </body>
 </html>
