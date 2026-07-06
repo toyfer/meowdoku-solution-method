@@ -3,121 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>中級手法 — Meowdoku 解法ガイド</title>
+<title>中級手法 — Meowdoku</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
-  <div class="container">
-    <h1>🐱 中級手法</h1>
-    <p class="sub">Hardレベルで頻出する、一段深い論理</p>
-  </div>
-</header>
-
-<nav>
-  <ul>
-    <li><a href="index.html">📖 目次</a></li>
-    <li><a href="basics.html">基本</a></li>
-    <li><a href="core.html">核心</a></li>
-    <li><a href="intermediate.html" style="color:var(--accent);border-color:var(--accent);">中級</a></li>
-    <li><a href="advanced.html">上級</a></li>
-    <li><a href="walkthrough.html">実演</a></li>
-    <li><a href="hard.html">Hard攻略</a></li>
-  </ul>
-</nav>
-
+<header><div class="container"><h1>🐱 中級手法</h1><p class="sub">Hard レベルで頻出する、一段深い論理</p></div></header>
+<nav><ul>
+<li><a href="index.html">📖 目次</a></li>
+<li><a href="basics.html">基本</a></li>
+<li><a href="core.html">核心</a></li>
+<li><a href="intermediate.html" style="color:var(--accent);border-color:var(--accent);">中級</a></li>
+<li><a href="advanced.html">上級</a></li>
+<li><a href="walkthrough.html">実演</a></li>
+<li><a href="hard.html">Hard攻略</a></li>
+</ul></nav>
 <div class="container">
-
 <section>
 <h2 class="section-title">⭐⭐ 中級1：領域消滅チェック</h2>
 <p class="section-sub">「もしここに置いたら、別の領域が消える」</p>
-
 <div class="card">
-  <p><strong>「あるマスに猫を置くと、別の色の領域から猫を置けるマスがすべて消えてしまう」</strong>— この場合、そのマスには絶対に猫を置けません。これを領域消滅チェックと呼びます。</p>
-
-  <h4>なぜ起きるか</h4>
-  <p>猫を置くと行・列・斜めの✗が発生します。これらが別の領域の全マスを覆い尽くしてしまった場合、その領域には猫を配置できなくなります。これはルール①の違反なので、そのような置き方は不可能＝そのマスは✗です。</p>
-
-  <h4>思考の手順</h4>
-  <div class="steps">
-    <li>あるマスに「仮に」猫を置いたとする</li>
-    <li>その結果、行・列・斜めの✗が発生する</li>
-    <li>別の領域の全マスが✗で埋まっていないかチェック</li>
-    <li>もし埋まったら → そのマスは✗（論理的に証明された）</li>
-  </div>
-
-  <div class="tip">
-    <strong>これは「推測」ではない</strong><br>
-    「もし置いたらルール違反になる」ことを論理的に証明しています。数学の背理法と同じ構造で、立派な論理的証明です。
-  </div>
+<p><strong>「あるマスに猫を置くと、別の色の領域から猫を置けるマスがすべて消えてしまう」</strong> — この場合、そのマスには絶対に猫を置けません。これを<strong>領域消滅チェック</strong>と呼びます。</p>
+<h4>思考の手順</h4>
+<div class="steps">
+<li>あるマスに「仮に」猫を置いたとする</li>
+<li>その結果、行・列・斜めの✗が発生する</li>
+<li>別の領域の全マスが✗で埋まっていないかチェック</li>
+<li>もし埋まったら → そのマスは✗（論理的に証明された）</li>
+</div>
+<div class="tip"><strong>これは「推測」ではない</strong><br>「もし置いたらルール違反になる」ことを論理的に証明。数学の背理法と同じ構造で、立派な論理的証明です。</div>
 </div>
 </section>
-
 <section>
 <h2 class="section-title">⭐⭐ 中級2：隠れシングル</h2>
-<p class="section-sub">「領域内では複数候補でも、行で見ると1つ」</p>
-
+<p class="section-sub">「領域内では複数候補でも、行で見ると 1 つ」</p>
 <div class="card">
-  <p>領域内で見ると複数の候補があるように見えても、<strong>行または列の制約を組み合わせると1つに絞られる</strong> ケース。これが隠れシングルです。</p>
-
-  <h4>例</h4>
-  <p>領域Aは4マスあります。パッと見ると「まだ2マス空いてる」ように見えます。しかし：</p>
-  <ul>
-    <li>領域Aの2マスのうち、1マスは同じ列に別の猫がいる（列制約で✗）</li>
-    <li>もう1マスは同じ行に別の猫がいる（行制約で✗）…ではなく、よく見ると斜め制約で✗</li>
-    <li>結局、残ったのは <strong>1マスだけ</strong></li>
-  </ul>
-
-  <div class="tip">
-    <strong>「隠れ」の意味</strong><br>
-    ✗を漏れなく付けていれば自動的に見つかります。つまり連鎖スキャンを丁寧に行っていれば、隠れシングルは自然に領域シングルとして現れます。<strong>「隠れている」のではなく、「✗を付け忘れている」</strong> という認識が重要です。
-  </div>
+<p>領域内で見ると複数の候補があるように見えても、<strong>行または列の制約を組み合わせると 1 つに絞られる</strong> ケース。これが<strong>隠れシングル</strong>。</p>
+<h4>図解（8×8 盤面）</h4>
+<p>紫領域（A）は 8 マスあり、見かけ上複数候補。しかし R3 行を見ると空マスは C4 だけ → R3C4 が<strong>行シングルで確定</strong>：</p>
+<div class="board-row"><figure>
+<div class="board" style="grid-template-columns:repeat(8,40px);grid-template-rows:repeat(8,40px);">
+<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell em r-a"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div>
+<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+</div>
+<figcaption>8×8 で見る隠れシングル。R3 行で紫 A の空マスは C4 だけ</figcaption>
+</figure></div>
+<div class="tip"><strong>「隠れ」の意味</strong><br>✗を漏れなく付けていれば自動的に見つかります。つまり連鎖スキャンを丁寧に行っていれば、隠れシングルは自然に領域シングルとして現れます。<strong>「隠れている」のではなく、「✗を付け忘れている」</strong> という認識が重要。</div>
 </div>
 </section>
-
 <section>
 <h2 class="section-title">⭐⭐ 中級3：斜め連鎖</h2>
-<p class="section-sub">「1匹の斜め制約が隣接領域を一変させる」</p>
-
+<p class="section-sub">「1 匹の斜め制約が隣接領域を一変させる」</p>
 <div class="card">
-  <p>猫1匹の斜め制約（周囲8マス）は、隣接する領域の候補を一気に削減します。特に <strong>細長い領域</strong> や <strong>小さな領域</strong> が斜め制約の範囲にかかると、領域全体が消滅したりシングルが発生したりします。</p>
-
-  <h4>斜め制約の範囲</h4>
-
-  <div class="board-row">
-    <figure>
-      <div class="board" style="grid-template-columns:repeat(5,52px);grid-template-rows:repeat(5,52px);">
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div>
-        <div class="cell x">✗</div><div class="cell cat"></div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div>
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell em"></div><div class="cell em"></div><div class="cell em"></div>
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell em"></div><div class="cell em"></div><div class="cell em"></div>
-        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell em"></div><div class="cell em"></div><div class="cell em"></div>
-      </div>
-      <figcaption>1匹の猫（R2C2）が周囲8マスを✗に。斜め方向のマスもれなく✗。</figcaption>
-    </figure>
-  </div>
-
-  <div class="warn">
-    <strong>⚠ 最も多いミス</strong><br>
-    「斜めだからセーフ」と思い込むこと。Meowdokuでは <strong>斜めも完全な接触禁止</strong> です。猫の周囲8マスを常に意識しましょう。<br><br>
-    猫を置くたびに「この猫の右上・左上・右下・左下の斜め4マスも✗」と声に出して確認する習慣をつけると、忘れなくなります。
-  </div>
+<p>猫 1 匹の斜め制約（周囲 8 マス）は、隣接する領域の候補を一気に削減。特に <strong>細長い領域</strong> や <strong>小さな領域</strong> が斜め制約の範囲にかかると、領域全体が消滅したりシングルが発生したり。</p>
+<h4>図解（8×8 での斜め連鎖）</h4>
+<p>R4C4 の猫から、周囲 8 マスが✗に。右側の黄緑領域 C が一気に絞られる：</p>
+<div class="board-row"><figure>
+<div class="board" style="grid-template-columns:repeat(8,40px);grid-template-rows:repeat(8,40px);">
+<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell x r-a"></div><div class="cell x r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell cat r-a"></div><div class="cell x r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell x r-d"></div><div class="cell x r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+</div>
+<figcaption>R4C4 の猫の周囲 8 マス（斜め含む）が✗に。隣接の黄緑 B・C も大きく影響を受ける</figcaption>
+</figure></div>
+<div class="warn"><strong>⚠ 最も多いミス</strong><br>「斜めだからセーフ」と思い込むこと。Meowdoku では <strong>斜めも完全な接触禁止</strong>。猫を置くたびに「この猫の右上・左上・右下・左下の斜め 4 マスも✗」と声に出して確認する習慣を。</div>
 </div>
 </section>
-
 <div class="page-nav">
-  <a href="core.html">← 核心手法</a>
-  <a href="advanced.html" class="next">次のページ：上級手法 →</a>
+<a href="core.html">← 核心手法</a>
+<a href="advanced.html" class="next">次のページ：上級手法 →</a>
 </div>
-
 </div>
-
-<footer>
-  <p>Meowdoku 解法ガイド — Unofficial fan guide</p>
-</footer>
-
+<footer><p>Meowdoku 解法ガイド — Unofficial fan guide</p><p>Meowdoku is a product of Oakever Games PTE. LTD.</p></footer>
 </body>
 </html>
