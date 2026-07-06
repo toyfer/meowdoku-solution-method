@@ -3,10 +3,10 @@
 html { scroll-behavior:smooth; }
 :root {
   --white: #ffffff;
-  --bg: #f5f3f0;
+  --bg: #ffffff;
   --surface: #ffffff;
-  --surface2: #f0ece8;
-  --surface3: #e8e4df;
+  --surface2: #f5f3f0;
+  --surface3: #edeae5;
   --border: #d4cfca;
   --text: #1a1a1a;
   --text2: #5a5550;
