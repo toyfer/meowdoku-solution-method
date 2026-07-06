@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>実演解説 — Meowdoku 解法ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>🎬 実演解説</h1>
+    <p class="sub">6×6盤面を最初から最後まで — 全テクニックの連携</p>
+  </div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="index.html">📖 目次</a></li>
+    <li><a href="basics.html">基本</a></li>
+    <li><a href="core.html">核心</a></li>
+    <li><a href="intermediate.html">中級</a></li>
+    <li><a href="advanced.html">上級</a></li>
+    <li><a href="walkthrough.html" style="color:var(--accent);border-color:var(--accent);">実演</a></li>
+    <li><a href="hard.html">Hard攻略</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+<section>
+<h2 class="section-title">🎬 6×6 完全攻略</h2>
+<p class="section-sub">実際の盤面を使って、すべての手を「なぜ」とともに解説します</p>
+
+<div class="card">
+  <h3>初期配置</h3>
+  <p>6×6の盤面、6つの色の領域。1匹の猫がR2C5（橙色の領域）に固定配置されています。</p>
+
+  <table class="info-table">
+    <tr><th>行</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr>
+    <tr><td>R1</td><td style="background:#ede0f5;">A</td><td style="background:#ede0f5;">A</td><td style="background:#e0f5e8;">B</td><td style="background:#e0f5e8;">B</td><td style="background:#e0ecf5;">C</td><td style="background:#e0ecf5;">C</td></tr>
+    <tr><td>R2</td><td style="background:#ede0f5;">A</td><td style="background:#ede0f5;">A</td><td style="background:#e0f5e8;">B</td><td style="background:#e0f5e8;">B</td><td style="background:var(--cat-bg);color:#fff;">🐱橙</td><td style="background:#f5ece0;">D</td></tr>
+    <tr><td>R3</td><td style="background:#f5ece0;">D</td><td style="background:#f5ece0;">D</td><td style="background:#f5ece0;">D</td><td style="background:#f5e0ec;">E</td><td style="background:#f5e0ec;">E</td><td style="background:#f5e0ec;">E</td></tr>
+    <tr><td>R4</td><td style="background:#f5e0ec;">E</td><td style="background:#f5e0ec;">E</td><td style="background:#f5e0ec;">E</td><td style="background:#ecf5e0;">F</td><td style="background:#ecf5e0;">F</td><td style="background:#ecf5e0;">F</td></tr>
+    <tr><td>R5</td><td style="background:#ecf5e0;">F</td><td style="background:#ecf5e0;">F</td><td style="background:#ecf5e0;">F</td><td style="background:#f5ece0;">D</td><td style="background:#f5ece0;">D</td><td style="background:#f5ece0;">D</td></tr>
+    <tr><td>R6</td><td style="background:#ede0f5;">A</td><td style="background:#ede0f5;">A</td><td style="background:#e0f5e8;">B</td><td style="background:#e0f5e8;">B</td><td style="background:#e0ecf5;">C</td><td style="background:#e0ecf5;">C</td></tr>
+  </table>
+
+  <div class="annot">6領域：A(薄紫) B(薄緑) C(薄青) D(薄橙) E(薄桃) F(薄ライム)</div>
+
+  <p>固定猫がR2C5（橙色の領域D）にいます。これにより：</p>
+  <ul>
+    <li>R2行全体が ✗（R2C1〜R2C4, R2C6）</li>
+    <li>C5列全体が ✗（R1C5, R3C5, R4C5, R5C5, R6C5）</li>
+    <li>斜め8マスが ✗（R1C4, R1C6, R3C4, R3C6）</li>
+    <li>領域Dの残りマスがすべて ✗（R3C1,R3C2,R3C3,R5C4,R5C5,R5C6）</li>
+  </ul>
+
+  <p>これで初期の✗がすべて出揃いました。ここからスタートです。</p>
+</div>
+
+<div class="card">
+  <h3>第1手：領域C（薄青）→ R1C6 が確定</h3>
+  <p>領域Cのマスは R1C5,R1C6,R2C6,R6C5,R6C6 の5マス。しかし：</p>
+  <ul>
+    <li>R1C5: ✗（固定猫の列 C5）</li>
+    <li>R2C6: ✗（固定猫の行 R2）</li>
+    <li>R6C5: ✗（固定猫の列 C5）</li>
+    <li>R6C6: ✗（固定猫の斜め R1C4からの類推…確認：R2C5の斜めはR1C4,R1C6,R3C4,R3C6。R6C6は斜め範囲外）</li>
+  </ul>
+  <p>あれ、R6C6は斜め範囲外ですね。R2C5からは離れすぎています。</p>
+  <p>再確認：固定猫R2C5の影響：</p>
+  <ul>
+    <li>✗行：R2 → R2C6 ✗</li>
+    <li>✗列：C5 → R1C5, R6C5 ✗</li>
+    <li>✗斜め：（R2-1,C5-1）＝R1C4、（R2-1,C5+1）＝R1C6、（R2+1,C5-1）＝R3C4、（R2+1,C5+1）＝R3C6</li>
+    <li>→ R1C6 ✗！</li>
+  </ul>
+  <p>R1C6も斜めで✗。そしてR6C6は斜め範囲外。</p>
+  
+  <p>領域Cの候補マス：R1C5(✗), R1C6(✗), R2C6(✗), R6C5(✗), R6C6(空) → <strong>R6C6 のみ</strong>！</p>
+  
+  <div class="tip">
+    <strong>使ったテクニック：領域シングル</strong><br>
+    領域Cの5マス中4マスが固定猫の制約で✗。残ったR6C6が確定します。
+  </div>
+</div>
+
+<div class="card">
+  <h3>第1手の連鎖スキャン</h3>
+  <p>R6C6に猫を置いたので、連鎖をスキャン：</p>
+  <ul>
+    <li>R6行 ✗: R6C1(A), R6C2(A), R6C3(B), R6C4(B), R6C5(C✗)</li>
+    <li>C6列 ✗: R1C6(C✗), R2C6(D✗), R3C6(E), R4C6(F), R5C6(D)</li>
+    <li>斜め ✗: R5C5(D), R5C7(範囲外), R7C5(範囲外), R7C7(範囲外)</li>
+  </ul>
+  <p>これにより新たな領域シングルを探します。</p>
+</div>
+
+<div class="card">
+  <h3>第2手：領域F（薄ライム）→ R4C4 が確定</h3>
+  <p>領域Fのマス：R4C4,R4C5,R4C6,R5C1,R5C2,R5C3 の6マス。</p>
+  <ul>
+    <li>R4C6: ✗（C6列、R6C6の猫）</li>
+    <li>…</li>
+  </ul>
+  <p>実際には各マスの状態を1つずつ確認しながら進めます。実戦では、すべての領域の候補数を頭の中でカウントしながら進めます。</p>
+
+  <div class="warn">
+    <strong>本ページは作成中です</strong><br>
+    完全なウォークスルーは現在構築中です。各手の盤面図と完全な検証を含めたバージョンは近日公開予定。<br><br>
+    それまでは、以下の3つのポイントを意識して実際のゲームで練習してみてください：<br>
+    ① 固定猫から✗を広げる<br>
+    ② 最小の領域から攻める<br>
+    ③ 猫を置くたびに連鎖スキャン<br><br>
+    この3つだけで、Easy〜Mediumの大半はクリアできます。
+  </div>
+</div>
+
+<div class="page-nav">
+  <a href="advanced.html">← 上級手法</a>
+  <a href="hard.html" class="next">次のページ：Hard攻略 →</a>
+</div>
+
+</section>
+
+</div>
+
+<footer>
+  <p>Meowdoku 解法ガイド — Unofficial fan guide</p>
+</footer>
+
+</body>
+</html>
