@@ -41,15 +41,15 @@
 
   <table class="info-table">
     <tr><th>行</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr>
-    <tr><td>R1</td><td style="background:#ede0f5;">A</td><td style="background:#ede0f5;">A</td><td style="background:#e0f5e8;">B</td><td style="background:#e0f5e8;">B</td><td style="background:#e0ecf5;">C</td><td style="background:#e0ecf5;">C</td></tr>
-    <tr><td>R2</td><td style="background:#ede0f5;">A</td><td style="background:#ede0f5;">A</td><td style="background:#e0f5e8;">B</td><td style="background:#e0f5e8;">B</td><td style="background:var(--cat-bg);color:#fff;">🐱橙</td><td style="background:#f5ece0;">D</td></tr>
-    <tr><td>R3</td><td style="background:#f5ece0;">D</td><td style="background:#f5ece0;">D</td><td style="background:#f5ece0;">D</td><td style="background:#f5e0ec;">E</td><td style="background:#f5e0ec;">E</td><td style="background:#f5e0ec;">E</td></tr>
-    <tr><td>R4</td><td style="background:#f5e0ec;">E</td><td style="background:#f5e0ec;">E</td><td style="background:#f5e0ec;">E</td><td style="background:#ecf5e0;">F</td><td style="background:#ecf5e0;">F</td><td style="background:#ecf5e0;">F</td></tr>
-    <tr><td>R5</td><td style="background:#ecf5e0;">F</td><td style="background:#ecf5e0;">F</td><td style="background:#ecf5e0;">F</td><td style="background:#f5ece0;">D</td><td style="background:#f5ece0;">D</td><td style="background:#f5ece0;">D</td></tr>
-    <tr><td>R6</td><td style="background:#ede0f5;">A</td><td style="background:#ede0f5;">A</td><td style="background:#e0f5e8;">B</td><td style="background:#e0f5e8;">B</td><td style="background:#e0ecf5;">C</td><td style="background:#e0ecf5;">C</td></tr>
+    <tr><td>R1</td><td style="background:#9b8ec4;color:#fff;font-weight:700;">A</td><td style="background:#9b8ec4;color:#fff;font-weight:700;">A</td><td style="background:#4a8c5f;color:#fff;font-weight:700;">B</td><td style="background:#4a8c5f;color:#fff;font-weight:700;">B</td><td style="background:#8cc152;color:#fff;font-weight:700;">C</td><td style="background:#8cc152;color:#fff;font-weight:700;">C</td></tr>
+    <tr><td>R2</td><td style="background:#9b8ec4;color:#fff;font-weight:700;">A</td><td style="background:#9b8ec4;color:#fff;font-weight:700;">A</td><td style="background:#4a8c5f;color:#fff;font-weight:700;">B</td><td style="background:#4a8c5f;color:#fff;font-weight:700;">B</td><td style="background:var(--cat-bg);color:#fff;">🐱橙</td><td style="background:#e8943a;color:#fff;font-weight:700;">D</td></tr>
+    <tr><td>R3</td><td style="background:#e8943a;color:#fff;font-weight:700;">D</td><td style="background:#e8943a;color:#fff;font-weight:700;">D</td><td style="background:#e8943a;color:#fff;font-weight:700;">D</td><td style="background:#d4758c;color:#fff;font-weight:700;">E</td><td style="background:#d4758c;color:#fff;font-weight:700;">E</td><td style="background:#d4758c;color:#fff;font-weight:700;">E</td></tr>
+    <tr><td>R4</td><td style="background:#d4758c;color:#fff;font-weight:700;">E</td><td style="background:#d4758c;color:#fff;font-weight:700;">E</td><td style="background:#d4758c;color:#fff;font-weight:700;">E</td><td style="background:#3a8fa1;color:#fff;font-weight:700;">F</td><td style="background:#3a8fa1;color:#fff;font-weight:700;">F</td><td style="background:#3a8fa1;color:#fff;font-weight:700;">F</td></tr>
+    <tr><td>R5</td><td style="background:#3a8fa1;color:#fff;font-weight:700;">F</td><td style="background:#3a8fa1;color:#fff;font-weight:700;">F</td><td style="background:#3a8fa1;color:#fff;font-weight:700;">F</td><td style="background:#e8943a;color:#fff;font-weight:700;">D</td><td style="background:#e8943a;color:#fff;font-weight:700;">D</td><td style="background:#e8943a;color:#fff;font-weight:700;">D</td></tr>
+    <tr><td>R6</td><td style="background:#9b8ec4;color:#fff;font-weight:700;">A</td><td style="background:#9b8ec4;color:#fff;font-weight:700;">A</td><td style="background:#4a8c5f;color:#fff;font-weight:700;">B</td><td style="background:#4a8c5f;color:#fff;font-weight:700;">B</td><td style="background:#8cc152;color:#fff;font-weight:700;">C</td><td style="background:#8cc152;color:#fff;font-weight:700;">C</td></tr>
   </table>
 
-  <div class="annot">6領域：A(薄紫) B(薄緑) C(薄青) D(薄橙) E(薄桃) F(薄ライム)</div>
+  <div class="annot">6領域：A(紫) B(緑) C(黄緑) D(橙) E(桃) F(青)</div>
 
   <p>固定猫がR2C5（橙色の領域D）にいます。これにより：</p>
   <ul>
@@ -63,24 +63,28 @@
 </div>
 
 <div class="card">
-  <h3>第1手：領域C（薄青）→ R1C6 が確定</h3>
+  <h3>第1手：領域C（黄緑）→ R6C6 が確定</h3>
   <p>領域Cのマスは R1C5,R1C6,R2C6,R6C5,R6C6 の5マス。しかし：</p>
   <ul>
     <li>R1C5: ✗（固定猫の列 C5）</li>
     <li>R2C6: ✗（固定猫の行 R2）</li>
     <li>R6C5: ✗（固定猫の列 C5）</li>
-    <li>R6C6: ✗（固定猫の斜め R1C4からの類推…確認：R2C5の斜めはR1C4,R1C6,R3C4,R3C6。R6C6は斜め範囲外）</li>
   </ul>
-  <p>あれ、R6C6は斜め範囲外ですね。R2C5からは離れすぎています。</p>
-  <p>再確認：固定猫R2C5の影響：</p>
-  <ul>
-    <li>✗行：R2 → R2C6 ✗</li>
-    <li>✗列：C5 → R1C5, R6C5 ✗</li>
-    <li>✗斜め：（R2-1,C5-1）＝R1C4、（R2-1,C5+1）＝R1C6、（R2+1,C5-1）＝R3C4、（R2+1,C5+1）＝R3C6</li>
-    <li>→ R1C6 ✗！</li>
-  </ul>
-  <p>R1C6も斜めで✗。そしてR6C6は斜め範囲外。</p>
-  
+
+  <div class="board-row">
+    <figure>
+      <div class="board" style="grid-template-columns:repeat(6,52px);grid-template-rows:repeat(6,52px);">
+        <div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell x">✗</div><div class="cell x">✗</div>
+        <div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell cat"></div><div class="cell x">✗</div>
+        <div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+        <div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell x">✗</div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+        <div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell x">✗</div><div class="cell x">✗</div><div class="cell x">✗</div>
+        <div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-c"></div><div class="cell em r-c next">✓</div>
+      </div>
+      <figcaption>R6C6（✓）が領域Cの唯一の候補に</figcaption>
+    </figure>
+  </div>
+
   <p>領域Cの候補マス：R1C5(✗), R1C6(✗), R2C6(✗), R6C5(✗), R6C6(空) → <strong>R6C6 のみ</strong>！</p>
   
   <div class="tip">
@@ -101,7 +105,7 @@
 </div>
 
 <div class="card">
-  <h3>第2手：領域F（薄ライム）→ R4C4 が確定</h3>
+  <h3>第2手：領域F（青）→ R4C4 が確定</h3>
   <p>領域Fのマス：R4C4,R4C5,R4C6,R5C1,R5C2,R5C3 の6マス。</p>
   <ul>
     <li>R4C6: ✗（C6列、R6C6の猫）</li>
