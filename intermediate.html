@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header><div class="container"><h1>🐱 中級手法</h1><p class="sub">Hard レベルで頻出する、一段深い論理</p></div></header>
+<header><div class="container"><h1> 中級手法</h1><p class="sub">Hard レベルで頻出する、一段深い論理</p></div></header>
 <nav><ul>
 <li><a href="index.html">📖 目次</a></li>
 <li><a href="basics.html">基本</a></li>
@@ -30,7 +30,7 @@
 <li>あるマスに「仮に」猫を置いたとする</li>
 <li>その結果、行・列・斜めの✗が発生する</li>
 <li>別の領域の全マスが✗で埋まっていないかチェック</li>
-<li>もし埋まったら → そのマスは✗（論理的に証明された）</li>
+<li>もし埋まったら → そのマスは（論理的に証明された）</li>
 </div>
 <div class="tip"><strong>これは「推測」ではない</strong><br>「もし置いたらルール違反になる」ことを論理的に証明。数学の背理法と同じ構造で、立派な論理的証明です。</div>
 </div>
@@ -41,19 +41,19 @@
 <div class="card">
 <p>領域内で見ると複数の候補があるように見えても、<strong>行または列の制約を組み合わせると 1 つに絞られる</strong> ケース。これが<strong>隠れシングル</strong>。</p>
 <h4>図解（8×8 盤面）</h4>
-<p>紫領域（A）は 8 マスあり、見かけ上複数候補。しかし R3 行を見ると空マスは C4 だけ → R3C4 が<strong>行シングルで確定</strong>：</p>
+<p>紫(D)領域は 8 マスあり、見かけ上複数候補。しかし R3 行を見ると空マスは C4 だけ → R3C4 が<strong>行シングルで確定</strong>：</p>
 <div class="board-row"><figure>
 <div class="board" style="grid-template-columns:repeat(8,40px);grid-template-rows:repeat(8,40px);">
-<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
-<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
-<div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell em r-a"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div>
-<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell em r-d"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div><div class="cell x r-c"></div>
 <div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
-<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
-<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
 <div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
+<div class="cell em r-h"></div><div class="cell em r-h"></div><div class="cell em r-h"></div><div class="cell em r-h"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div>
 </div>
-<figcaption>8×8 で見る隠れシングル。R3 行で紫 A の空マスは C4 だけ</figcaption>
+<figcaption>8×8 で見る隠れシングル。R3 行で紫(D)の空マスは C4 だけ</figcaption>
 </figure></div>
 <div class="tip"><strong>「隠れ」の意味</strong><br>✗を漏れなく付けていれば自動的に見つかります。つまり連鎖スキャンを丁寧に行っていれば、隠れシングルは自然に領域シングルとして現れます。<strong>「隠れている」のではなく、「✗を付け忘れている」</strong> という認識が重要。</div>
 </div>
@@ -64,19 +64,19 @@
 <div class="card">
 <p>猫 1 匹の斜め制約（周囲 8 マス）は、隣接する領域の候補を一気に削減。特に <strong>細長い領域</strong> や <strong>小さな領域</strong> が斜め制約の範囲にかかると、領域全体が消滅したりシングルが発生したり。</p>
 <h4>図解（8×8 での斜め連鎖）</h4>
-<p>R4C4 の猫から、周囲 8 マスが✗に。右側の黄緑領域 C が一気に絞られる：</p>
+<p>R4C4 の猫から、周囲 8 マスがに。右側のライム(B)領域 C が一気に絞られる：</p>
 <div class="board-row"><figure>
 <div class="board" style="grid-template-columns:repeat(8,40px);grid-template-rows:repeat(8,40px);">
-<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
-<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
-<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell x r-a"></div><div class="cell x r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
-<div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell em r-a"></div><div class="cell cat r-a"></div><div class="cell x r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
 <div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell x r-d"></div><div class="cell x r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
-<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
-<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell em r-d"></div><div class="cell cat r-d"></div><div class="cell x r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell x r-f"></div><div class="cell x r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div><div class="cell em r-b"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
+<div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-f"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
 <div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-e"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div><div class="cell em r-c"></div>
 </div>
-<figcaption>R4C4 の猫の周囲 8 マス（斜め含む）が✗に。隣接の黄緑 B・C も大きく影響を受ける</figcaption>
+<figcaption>R4C4 の紫(D)の猫の周囲 8 マス（斜め含む）が✗に。隣接のライム(B)も大きく影響を受ける</figcaption>
 </figure></div>
 <div class="warn"><strong>⚠ 最も多いミス</strong><br>「斜めだからセーフ」と思い込むこと。Meowdoku では <strong>斜めも完全な接触禁止</strong>。猫を置くたびに「この猫の右上・左上・右下・左下の斜め 4 マスも✗」と声に出して確認する習慣を。</div>
 </div>
